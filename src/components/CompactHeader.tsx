@@ -2,8 +2,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Search, Filter, SortAsc, Building2, Plus } from "lucide-react";
+import { Search, Filter, SortAsc, Building2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import crestLogo from "@/assets/crest-logo.png";
 
 type PropertyType = "all" | "sale" | "lease" | "business";
 type SortOption = "address" | "date" | "status";
@@ -45,11 +46,11 @@ export function CompactHeader({
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2">
               <div className="bg-primary/10 rounded-lg p-2">
-                <Building2 className="w-5 h-5 text-primary" />
+                <img src={crestLogo} alt="Crest Realty Logo" className="w-8 h-6 object-contain" />
               </div>
               <div>
                 <h1 className="text-lg font-semibold text-foreground">CREST REALTY</h1>
-                <p className="text-xs text-muted-foreground">Property Management</p>
+                <p className="text-xs text-muted-foreground">Dashboard</p>
               </div>
             </div>
             
@@ -80,11 +81,7 @@ export function CompactHeader({
           </div>
 
           <div className="flex items-center gap-3">
-            <Button size="sm" className="h-8 px-3 text-xs">
-              <Plus className="w-3 h-3" />
-              Add Property
-            </Button>
-            <span className="text-xs text-muted-foreground">Last Updated 7/12/2025 at 10:18 PM</span>
+            <span className="text-xs text-muted-foreground">Last Updated 7/12/2025 at 10:26 PM</span>
           </div>
         </div>
       </div>

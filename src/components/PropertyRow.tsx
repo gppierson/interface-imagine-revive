@@ -81,10 +81,13 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
         <div className="space-y-1">
           <div className="font-medium text-foreground text-sm">{property.address}</div>
           {property.price && (
-            <div className="text-sm font-semibold text-primary">{property.price}</div>
+            <div className="text-sm text-muted-foreground">
+              {property.type === 'lease' ? 'Lease Price: ' : 'Sale Price: '}
+              <span className="font-semibold text-primary">{property.price}</span>
+            </div>
           )}
           {property.lotSize && (
-            <div className="text-xs text-muted-foreground">Lot Size: {property.lotSize}</div>
+            <div className="text-sm text-muted-foreground">Lot Size: {property.lotSize}</div>
           )}
           {isEditingNickname ? (
             <div className="flex items-center gap-2">
