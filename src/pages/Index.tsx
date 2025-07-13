@@ -21,6 +21,10 @@ interface Property {
     date: string;
   }>;
   dateAdded: string;
+  leaseCommencement?: Date;
+  sellerDisclosureDeadline?: Date;
+  dueDiligenceDeadline?: Date;
+  closingDate?: Date;
 }
 
 // Updated sample data matching the reference design
@@ -235,6 +239,9 @@ const Index = () => {
             <table className="w-full">
               <thead className="bg-muted/30 border-b border-border">
                 <tr>
+                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider w-8">
+                    
+                  </th>
                   <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     Type
                   </th>
@@ -254,7 +261,7 @@ const Index = () => {
                     Status
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    Notes
+                    Listed Date
                   </th>
                 </tr>
               </thead>
