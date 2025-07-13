@@ -136,9 +136,9 @@ export function PropertyFilters({
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="address">Sort by Address</SelectItem>
-                  <SelectItem value="date">Sort by Date</SelectItem>
-                  <SelectItem value="status">Sort by Status</SelectItem>
+                  <SelectItem value="address">Address</SelectItem>
+                  <SelectItem value="date">Date</SelectItem>
+                  <SelectItem value="status">Status</SelectItem>
                 </SelectContent>
               </Select>
             </div>
