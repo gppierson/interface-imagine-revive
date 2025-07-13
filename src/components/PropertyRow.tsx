@@ -3,9 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Textarea } from "@/components/ui/textarea";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Plus, Edit2, MessageSquare, MoreHorizontal, CheckCircle2, Clock, XCircle, AlertCircle } from "lucide-react";
+import { Edit2, CheckCircle2, Clock, XCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Note {
@@ -34,23 +32,10 @@ interface PropertyRowProps {
 export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
   const [isEditingNickname, setIsEditingNickname] = useState(false);
   const [nicknameValue, setNicknameValue] = useState(property.nickname || "");
-  const [newNote, setNewNote] = useState("");
 
   const handleNicknameUpdate = () => {
     onUpdate(property.id, { nickname: nicknameValue });
     setIsEditingNickname(false);
-  };
-
-  const handleAddNote = () => {
-    if (newNote.trim()) {
-      const note: Note = {
-        id: Date.now().toString(),
-        content: newNote.trim(),
-        date: new Date().toLocaleDateString()
-      };
-      onUpdate(property.id, { notes: [...property.notes, note] });
-      setNewNote("");
-    }
   };
 
   const statusConfig = {
@@ -162,55 +147,20 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
       </td>
 
       {/* Notes */}
-      <td className="py-3 px-4">
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="ghost" size="sm" className="h-8 px-2 text-xs">
-              <MessageSquare className="w-3 h-3" />
-              {property.notes.length > 0 && (
-                <Badge variant="secondary" className="ml-1 h-4 w-4 p-0 text-xs">
-                  {property.notes.length}
-                </Badge>
-              )}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-80 p-4" align="end">
-            <div className="space-y-3">
-              <h4 className="font-medium text-sm">Notes</h4>
-              
-              {property.notes.length > 0 && (
-                <div className="space-y-2 max-h-32 overflow-y-auto">
-                  {property.notes.map((note) => (
-                    <div key={note.id} className="p-2 bg-muted/50 rounded text-xs">
-                      <p className="text-foreground mb-1">{note.content}</p>
-                      <p className="text-muted-foreground">{note.date}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
-              
-              <div className="space-y-2">
-                <Textarea
-                  value={newNote}
-                  onChange={(e) => setNewNote(e.target.value)}
-                  placeholder="Add a note..."
-                  className="min-h-16 text-xs resize-none"
-                />
-                <Button size="sm" onClick={handleAddNote} disabled={!newNote.trim()}>
-                  <Plus className="w-3 h-3" />
-                  Add Note
-                </Button>
+      <td className="py-3 px-4 min-w-0">
+        <div className="space-y-1 max-w-xs">
+          {property.notes.length > 0 ? (
+            property.notes.map((note, index) => (
+              <div key={note.id} className="text-xs">
+                <div className="text-foreground">{note.content}</div>
+                <div className="text-muted-foreground">{note.date}</div>
+                {index < property.notes.length - 1 && <div className="border-b border-border/30 my-1"></div>}
               </div>
-            </div>
-          </PopoverContent>
-        </Popover>
-      </td>
-
-      {/* Actions */}
-      <td className="py-3 px-4">
-        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity">
-          <MoreHorizontal className="w-4 h-4" />
-        </Button>
+            ))
+          ) : (
+            <span className="text-muted-foreground text-xs">No notes</span>
+          )}
+        </div>
       </td>
     </tr>
   );

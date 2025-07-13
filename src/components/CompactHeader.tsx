@@ -45,9 +45,7 @@ export function CompactHeader({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2">
-              <div className="bg-primary/10 rounded-lg p-2">
-                <img src={crestLogo} alt="Crest Realty Logo" className="w-10 h-6 object-contain" />
-              </div>
+              <img src={crestLogo} alt="Crest Realty Logo" className="w-12 h-8 object-contain" />
               <div>
                 <h1 className="text-lg font-semibold text-foreground">CREST REALTY</h1>
                 <p className="text-xs text-muted-foreground">Dashboard</p>

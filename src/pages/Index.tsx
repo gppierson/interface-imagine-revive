@@ -256,9 +256,6 @@ const Index = () => {
                   <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     Notes
                   </th>
-                  <th className="text-right py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    Actions
-                  </th>
                 </tr>
               </thead>
               <tbody>
