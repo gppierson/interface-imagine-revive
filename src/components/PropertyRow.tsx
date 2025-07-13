@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
@@ -41,10 +42,25 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
   const [isEditingNickname, setIsEditingNickname] = useState(false);
   const [nicknameValue, setNicknameValue] = useState(property.nickname || "");
   const [isExpanded, setIsExpanded] = useState(false);
+  const [newNote, setNewNote] = useState("");
 
   const handleNicknameUpdate = () => {
     onUpdate(property.id, { nickname: nicknameValue });
     setIsEditingNickname(false);
+  };
+
+  const handleAddNote = () => {
+    if (newNote.trim()) {
+      const note: Note = {
+        id: Date.now().toString(),
+        content: newNote.trim(),
+        date: new Date().toLocaleDateString()
+      };
+      onUpdate(property.id, { 
+        notes: [...property.notes, note] 
+      });
+      setNewNote("");
+    }
   };
 
   const statusConfig = {
@@ -216,6 +232,31 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
             {/* Notes Section - Takes 2/3 of the space */}
             <div className="lg:col-span-2">
               <h4 className="font-medium text-sm mb-3">Notes</h4>
+              
+              {/* Add new note */}
+              <div className="mb-4 space-y-2">
+                <Textarea
+                  value={newNote}
+                  onChange={(e) => setNewNote(e.target.value)}
+                  placeholder="Add a new note..."
+                  className="resize-none text-sm"
+                  rows={3}
+                  onClick={(e) => e.stopPropagation()}
+                />
+                <Button 
+                  size="sm" 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleAddNote();
+                  }}
+                  disabled={!newNote.trim()}
+                  className="text-xs"
+                >
+                  Add Note
+                </Button>
+              </div>
+
+              {/* Existing notes */}
               <div className="space-y-2 max-h-60 overflow-y-auto">
                 {property.notes.length > 0 ? (
                   property.notes.map((note, index) => (
@@ -225,7 +266,7 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
                     </div>
                   ))
                 ) : (
-                  <div className="text-sm text-muted-foreground">No notes available</div>
+                  <div className="text-sm text-muted-foreground">No notes yet. Add one above!</div>
                 )}
               </div>
             </div>
