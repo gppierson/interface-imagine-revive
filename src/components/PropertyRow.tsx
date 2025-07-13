@@ -80,12 +80,6 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
       <td className="py-3 px-4 min-w-0">
         <div className="space-y-1">
           <div className="font-medium text-foreground text-sm">{property.address}</div>
-          {property.price && (
-            <div className="text-sm text-muted-foreground">
-              {property.type === 'lease' ? 'Lease Price: ' : 'Sale Price: '}
-              <span className="font-semibold text-primary">{property.price}</span>
-            </div>
-          )}
           {property.lotSize && (
             <div className="text-sm text-muted-foreground">Lot Size: {property.lotSize}</div>
           )}
@@ -116,6 +110,20 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
             </button>
           )}
         </div>
+      </td>
+
+      {/* Price */}
+      <td className="py-3 px-4">
+        {property.price ? (
+          <div className="space-y-1">
+            <div className="text-sm text-muted-foreground">
+              {property.type === 'lease' ? 'Lease Price:' : 'Sale Price:'}
+            </div>
+            <div className="font-semibold text-foreground">{property.price}</div>
+          </div>
+        ) : (
+          <span className="text-muted-foreground text-sm">-</span>
+        )}
       </td>
 
       {/* Status */}

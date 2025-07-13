@@ -231,6 +231,9 @@ const Index = () => {
                     Property
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    Price
+                  </th>
+                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     Status
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">

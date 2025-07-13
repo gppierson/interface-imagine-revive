@@ -4,7 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Search, Filter, SortAsc, Building2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import crestLogo from "@/assets/crest-logo.png";
+import crestLogo from "@/assets/crest-realty-logo.svg";
 
 type PropertyType = "all" | "sale" | "lease" | "business";
 type SortOption = "address" | "date" | "status";
@@ -46,7 +46,7 @@ export function CompactHeader({
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2">
               <div className="bg-primary/10 rounded-lg p-2">
-                <img src={crestLogo} alt="Crest Realty Logo" className="w-8 h-6 object-contain" />
+                <img src={crestLogo} alt="Crest Realty Logo" className="w-10 h-6 object-contain" />
               </div>
               <div>
                 <h1 className="text-lg font-semibold text-foreground">CREST REALTY</h1>
