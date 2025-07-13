@@ -1,7 +1,6 @@
 import { useState, useMemo } from "react";
-import { PropertyHeader } from "@/components/PropertyHeader";
-import { PropertyFilters } from "@/components/PropertyFilters";
-import { PropertyCard } from "@/components/PropertyCard";
+import { CompactHeader } from "@/components/CompactHeader";
+import { PropertyRow } from "@/components/PropertyRow";
 
 type PropertyType = "all" | "sale" | "lease" | "business";
 type SortOption = "address" | "date" | "status";
@@ -21,7 +20,7 @@ interface Property {
   dateAdded: string;
 }
 
-// Sample data
+// Sample data with more properties for better demonstration
 const initialProperties: Property[] = [
   {
     id: "1",
@@ -29,8 +28,8 @@ const initialProperties: Property[] = [
     type: "sale",
     status: "listed",
     notes: [
-      { id: "1", content: "testing", date: "2025-07-13" },
-      { id: "2", content: "testing", date: "2025-07-13" }
+      { id: "1", content: "Great location near schools", date: "2025-07-13" },
+      { id: "2", content: "Needs minor repairs", date: "2025-07-13" }
     ],
     dateAdded: "2025-07-13"
   },
@@ -38,9 +37,10 @@ const initialProperties: Property[] = [
     id: "2", 
     address: "1090 Cambridge Cir, Layton UT 84040",
     type: "sale",
-    status: "listed",
+    status: "pending",
+    nickname: "Cambridge Property",
     notes: [
-      { id: "3", content: "test", date: "2025-07-13" }
+      { id: "3", content: "Offer pending inspection", date: "2025-07-13" }
     ],
     dateAdded: "2025-07-13"
   },
@@ -56,9 +56,10 @@ const initialProperties: Property[] = [
     id: "4",
     address: "500 Main Street, Salt Lake City UT 84101",
     type: "lease",
-    status: "pending",
+    status: "listed",
+    nickname: "Downtown Office",
     notes: [
-      { id: "4", content: "Great location for retail", date: "2025-07-13" }
+      { id: "4", content: "Perfect for retail business", date: "2025-07-13" }
     ],
     dateAdded: "2025-07-12"
   },
@@ -66,9 +67,31 @@ const initialProperties: Property[] = [
     id: "5",
     address: "1200 Business Park Dr, Provo UT 84601",
     type: "business",
-    status: "listed",
+    status: "sold",
     notes: [],
     dateAdded: "2025-07-11"
+  },
+  {
+    id: "6",
+    address: "800 Tech Boulevard, Lehi UT 84043",
+    type: "lease",
+    status: "pending",
+    nickname: "Tech Hub",
+    notes: [
+      { id: "5", content: "High-tech office space", date: "2025-07-10" },
+      { id: "6", content: "Multiple interested parties", date: "2025-07-12" }
+    ],
+    dateAdded: "2025-07-10"
+  },
+  {
+    id: "7",
+    address: "2500 Industrial Way, West Valley UT 84119",
+    type: "business",
+    status: "withdrawn",
+    notes: [
+      { id: "7", content: "Owner decided not to sell", date: "2025-07-11" }
+    ],
+    dateAdded: "2025-07-09"
   }
 ];
 
@@ -130,13 +153,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PropertyHeader 
-        listingsCount={properties.length}
-        clientsCount={0}
-        lastUpdated="7/12/2025"
-      />
-
-      <PropertyFilters
+      <CompactHeader
         propertyType={propertyType}
         onPropertyTypeChange={setPropertyType}
         statusFilter={statusFilter}
@@ -148,23 +165,46 @@ const Index = () => {
         counts={counts}
       />
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="max-w-7xl mx-auto px-6 py-6">
         {filteredAndSortedProperties.length === 0 ? (
-          <div className="text-center py-16">
-            <div className="text-muted-foreground text-lg mb-2">No properties found</div>
+          <div className="text-center py-12">
+            <div className="text-muted-foreground mb-2">No properties found</div>
             <div className="text-muted-foreground text-sm">
               Try adjusting your filters or search criteria
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {filteredAndSortedProperties.map((property) => (
-              <PropertyCard
-                key={property.id}
-                property={property}
-                onUpdateProperty={handleUpdateProperty}
-              />
-            ))}
+          <div className="bg-card border border-border rounded-lg overflow-hidden">
+            <table className="w-full">
+              <thead className="bg-muted/30 border-b border-border">
+                <tr>
+                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    Type
+                  </th>
+                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    Property
+                  </th>
+                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    Notes
+                  </th>
+                  <th className="text-right py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredAndSortedProperties.map((property) => (
+                  <PropertyRow
+                    key={property.id}
+                    property={property}
+                    onUpdate={handleUpdateProperty}
+                  />
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
       </div>

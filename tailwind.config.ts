@@ -60,9 +60,9 @@ export default {
 					DEFAULT: 'hsl(var(--warning))',
 					foreground: 'hsl(var(--warning-foreground))'
 				},
-				'estate-red': {
-					DEFAULT: 'hsl(var(--estate-red))',
-					foreground: 'hsl(var(--estate-red-foreground))'
+				info: {
+					DEFAULT: 'hsl(var(--info))',
+					foreground: 'hsl(var(--info-foreground))'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',

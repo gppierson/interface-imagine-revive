@@ -9,51 +9,36 @@ All colors MUST be HSL.
 @layer base {
   :root {
     --background: 250 100% 99%;
-    --foreground: 215 25% 15%;
+    --foreground: 225 15% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 15%;
+    --card-foreground: 225 15% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 15%;
+    --popover-foreground: 225 15% 15%;
 
-    --primary: 217 91% 60%;
+    --primary: 225 85% 65%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 215 25% 96%;
-    --secondary-foreground: 215 25% 25%;
+    --secondary: 225 10% 96%;
+    --secondary-foreground: 225 20% 25%;
 
-    --muted: 215 15% 96%;
-    --muted-foreground: 215 15% 45%;
+    --muted: 225 10% 96%;
+    --muted-foreground: 225 15% 45%;
 
-    --accent: 217 91% 95%;
-    --accent-foreground: 217 91% 30%;
+    --accent: 225 85% 95%;
+    --accent-foreground: 225 85% 30%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 215 15% 92%;
-    --input: 215 15% 96%;
-    --ring: 217 91% 60%;
+    --border: 225 15% 92%;
+    --input: 225 10% 96%;
+    --ring: 225 85% 65%;
 
-    --success: 142 76% 36%;
-    --success-foreground: 0 0% 100%;
-
+    --success: 142 71% 45%;
     --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
-
-    --estate-red: 355 85% 55%;
-    --estate-red-foreground: 0 0% 100%;
-
-    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(217 91% 70%));
-    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(215 15% 98%));
-    --gradient-header: linear-gradient(135deg, hsl(217 91% 60%), hsl(217 91% 50%));
-
-    --shadow-card: 0 4px 6px -1px hsl(215 15% 15% / 0.1), 0 2px 4px -1px hsl(215 15% 15% / 0.06);
-    --shadow-card-hover: 0 10px 15px -3px hsl(215 15% 15% / 0.1), 0 4px 6px -2px hsl(215 15% 15% / 0.05);
-    --shadow-header: 0 4px 6px -1px hsl(217 91% 60% / 0.2);
-
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --info: 217 91% 60%;
 
     --radius: 0.5rem;
 
