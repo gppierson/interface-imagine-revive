@@ -212,11 +212,11 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
     {isExpanded && (
       <tr className="bg-muted/20">
         <td colSpan={8} className="p-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Notes Section */}
-            <div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Notes Section - Takes 2/3 of the space */}
+            <div className="lg:col-span-2">
               <h4 className="font-medium text-sm mb-3">Notes</h4>
-              <div className="space-y-2 max-h-40 overflow-y-auto">
+              <div className="space-y-2 max-h-60 overflow-y-auto">
                 {property.notes.length > 0 ? (
                   property.notes.map((note, index) => (
                     <div key={note.id} className="bg-background p-3 rounded-lg border">
@@ -230,7 +230,7 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
               </div>
             </div>
 
-            {/* Property-specific Fields */}
+            {/* Property-specific Fields - Takes 1/3 of the space */}
             <div>
               {property.type === 'lease' && (
                 <div>
@@ -264,6 +264,34 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
                         placeholder="Select deadline"
                       />
                     </div>
+                    <div>
+                      <label className="text-xs font-medium text-muted-foreground block mb-1">
+                        Due Diligence Deadline
+                      </label>
+                      <DatePicker
+                        date={property.dueDiligenceDeadline}
+                        onDateChange={(date) => onUpdate(property.id, { dueDiligenceDeadline: date })}
+                        placeholder="Select deadline"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-xs font-medium text-muted-foreground block mb-1">
+                        Closing Date
+                      </label>
+                      <DatePicker
+                        date={property.closingDate}
+                        onDateChange={(date) => onUpdate(property.id, { closingDate: date })}
+                        placeholder="Select date"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {property.type === 'business' && (
+                <div>
+                  <h4 className="font-medium text-sm mb-3">Business Details</h4>
+                  <div className="space-y-3">
                     <div>
                       <label className="text-xs font-medium text-muted-foreground block mb-1">
                         Due Diligence Deadline
