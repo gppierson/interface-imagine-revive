@@ -12,6 +12,8 @@ interface Property {
   type: "sale" | "lease" | "business";
   status: "listed" | "pending" | "sold" | "withdrawn";
   nickname?: string;
+  price?: string;
+  lotSize?: string;
   notes: Array<{
     id: string;
     content: string;
@@ -20,16 +22,18 @@ interface Property {
   dateAdded: string;
 }
 
-// Sample data with more properties for better demonstration
+// Updated sample data matching the reference design
 const initialProperties: Property[] = [
   {
     id: "1",
     address: "1069 S 1600 W, Perry UT 84302",
     type: "sale",
     status: "listed",
+    price: "$987,900",
+    lotSize: "2.35 acres",
     notes: [
-      { id: "1", content: "Great location near schools", date: "2025-07-13" },
-      { id: "2", content: "Needs minor repairs", date: "2025-07-13" }
+      { id: "1", content: "testing", date: "2025-07-13" },
+      { id: "2", content: "testing", date: "2025-07-13" }
     ],
     dateAdded: "2025-07-13"
   },
@@ -37,10 +41,11 @@ const initialProperties: Property[] = [
     id: "2", 
     address: "1090 Cambridge Cir, Layton UT 84040",
     type: "sale",
-    status: "pending",
-    nickname: "Cambridge Property",
+    status: "listed",
+    price: "$1,650,000",
+    lotSize: "0.37 acres",
     notes: [
-      { id: "3", content: "Offer pending inspection", date: "2025-07-13" }
+      { id: "3", content: "test", date: "2025-07-13" }
     ],
     dateAdded: "2025-07-13"
   },
@@ -49,6 +54,8 @@ const initialProperties: Property[] = [
     address: "1480 Ridgeline Dr, South Ogden UT 84405", 
     type: "sale",
     status: "listed",
+    price: "$3,347,500",
+    lotSize: "1 acres",
     notes: [],
     dateAdded: "2025-07-13"
   },
@@ -57,7 +64,8 @@ const initialProperties: Property[] = [
     address: "500 Main Street, Salt Lake City UT 84101",
     type: "lease",
     status: "listed",
-    nickname: "Downtown Office",
+    price: "$2,500/month",
+    lotSize: "1,200 sq ft",
     notes: [
       { id: "4", content: "Perfect for retail business", date: "2025-07-13" }
     ],
@@ -68,6 +76,8 @@ const initialProperties: Property[] = [
     address: "1200 Business Park Dr, Provo UT 84601",
     type: "business",
     status: "sold",
+    price: "$450,000",
+    lotSize: "5,000 sq ft",
     notes: [],
     dateAdded: "2025-07-11"
   },
@@ -76,7 +86,8 @@ const initialProperties: Property[] = [
     address: "800 Tech Boulevard, Lehi UT 84043",
     type: "lease",
     status: "pending",
-    nickname: "Tech Hub",
+    price: "$3,200/month",
+    lotSize: "2,400 sq ft",
     notes: [
       { id: "5", content: "High-tech office space", date: "2025-07-10" },
       { id: "6", content: "Multiple interested parties", date: "2025-07-12" }
@@ -88,10 +99,45 @@ const initialProperties: Property[] = [
     address: "2500 Industrial Way, West Valley UT 84119",
     type: "business",
     status: "withdrawn",
+    price: "$320,000",
+    lotSize: "3,800 sq ft",
     notes: [
       { id: "7", content: "Owner decided not to sell", date: "2025-07-11" }
     ],
     dateAdded: "2025-07-09"
+  },
+  // Additional properties to match the 40 total count
+  {
+    id: "8",
+    address: "2100 North Temple, Salt Lake City UT 84116",
+    type: "lease",
+    status: "listed",
+    price: "$1,800/month",
+    lotSize: "950 sq ft",
+    notes: [],
+    dateAdded: "2025-07-08"
+  },
+  {
+    id: "9",
+    address: "3500 South State, South Salt Lake UT 84115",
+    type: "sale",
+    status: "pending",
+    price: "$425,000",
+    lotSize: "0.25 acres",
+    notes: [
+      { id: "8", content: "Offer received", date: "2025-07-12" }
+    ],
+    dateAdded: "2025-07-07"
+  },
+  {
+    id: "10",
+    address: "1800 West 3500 South, West Valley UT 84119",
+    type: "lease",
+    status: "listed",
+    price: "$2,200/month",
+    lotSize: "1,500 sq ft",
+    notes: [],
+    dateAdded: "2025-07-06"
   }
 ];
 

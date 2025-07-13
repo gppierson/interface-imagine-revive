@@ -84,7 +84,7 @@ export function CompactHeader({
               <Plus className="w-3 h-3" />
               Add Property
             </Button>
-            <span className="text-xs text-muted-foreground">Updated: 7/12/2025</span>
+            <span className="text-xs text-muted-foreground">Last Updated 7/12/2025 at 10:18 PM</span>
           </div>
         </div>
       </div>

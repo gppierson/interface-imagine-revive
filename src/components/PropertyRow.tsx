@@ -20,6 +20,8 @@ interface Property {
   type: "sale" | "lease" | "business";
   status: "listed" | "pending" | "sold" | "withdrawn";
   nickname?: string;
+  price?: string;
+  lotSize?: string;
   notes: Note[];
 }
 
@@ -78,6 +80,12 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
       <td className="py-3 px-4 min-w-0">
         <div className="space-y-1">
           <div className="font-medium text-foreground text-sm">{property.address}</div>
+          {property.price && (
+            <div className="text-sm font-semibold text-primary">{property.price}</div>
+          )}
+          {property.lotSize && (
+            <div className="text-xs text-muted-foreground">Lot Size: {property.lotSize}</div>
+          )}
           {isEditingNickname ? (
             <div className="flex items-center gap-2">
               <Input
