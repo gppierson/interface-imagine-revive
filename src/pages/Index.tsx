@@ -70,7 +70,7 @@ const initialProperties: Property[] = [
     status: "listed",
     price: "$2,500/month",
     squareFeet: "1,200 sq ft",
-    lotSize: "-",
+    lotSize: "0.1 acres",
     notes: [
       { id: "4", content: "Perfect for retail business", date: "2025-07-13" }
     ],
@@ -94,7 +94,7 @@ const initialProperties: Property[] = [
     status: "pending",
     price: "$3,200/month",
     squareFeet: "2,400 sq ft",
-    lotSize: "-",
+    lotSize: "0.5 acres",
     notes: [
       { id: "5", content: "High-tech office space", date: "2025-07-10" },
       { id: "6", content: "Multiple interested parties", date: "2025-07-12" }
@@ -122,7 +122,7 @@ const initialProperties: Property[] = [
     status: "listed",
     price: "$1,800/month",
     squareFeet: "950 sq ft",
-    lotSize: "-",
+    lotSize: "0.2 acres",
     notes: [],
     dateAdded: "2025-07-08"
   },
@@ -146,7 +146,7 @@ const initialProperties: Property[] = [
     status: "listed",
     price: "$2,200/month",
     squareFeet: "1,500 sq ft",
-    lotSize: "-",
+    lotSize: "0.3 acres",
     notes: [],
     dateAdded: "2025-07-06"
   }
