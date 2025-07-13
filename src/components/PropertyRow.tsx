@@ -21,6 +21,7 @@ interface Property {
   status: "listed" | "pending" | "sold" | "withdrawn";
   nickname?: string;
   price?: string;
+  squareFeet?: string;
   lotSize?: string;
   notes: Note[];
 }
@@ -80,9 +81,6 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
       <td className="py-3 px-4 min-w-0">
         <div className="space-y-1">
           <div className="font-medium text-foreground text-sm">{property.address}</div>
-          {property.lotSize && (
-            <div className="text-sm text-muted-foreground">Lot Size: {property.lotSize}</div>
-          )}
           {isEditingNickname ? (
             <div className="flex items-center gap-2">
               <Input
@@ -124,6 +122,20 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
         ) : (
           <span className="text-muted-foreground text-sm">-</span>
         )}
+      </td>
+
+      {/* Square Feet */}
+      <td className="py-3 px-4">
+        <div className="text-sm text-foreground">
+          {property.squareFeet || '-'}
+        </div>
+      </td>
+
+      {/* Lot Size */}
+      <td className="py-3 px-4">
+        <div className="text-sm text-foreground">
+          {property.lotSize || '-'}
+        </div>
       </td>
 
       {/* Status */}

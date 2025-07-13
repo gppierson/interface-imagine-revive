@@ -13,6 +13,7 @@ interface Property {
   status: "listed" | "pending" | "sold" | "withdrawn";
   nickname?: string;
   price?: string;
+  squareFeet?: string;
   lotSize?: string;
   notes: Array<{
     id: string;
@@ -30,6 +31,7 @@ const initialProperties: Property[] = [
     type: "sale",
     status: "listed",
     price: "$987,900",
+    squareFeet: "2,450 sq ft",
     lotSize: "2.35 acres",
     notes: [
       { id: "1", content: "testing", date: "2025-07-13" },
@@ -43,6 +45,7 @@ const initialProperties: Property[] = [
     type: "sale",
     status: "listed",
     price: "$1,650,000",
+    squareFeet: "3,200 sq ft",
     lotSize: "0.37 acres",
     notes: [
       { id: "3", content: "test", date: "2025-07-13" }
@@ -55,6 +58,7 @@ const initialProperties: Property[] = [
     type: "sale",
     status: "listed",
     price: "$3,347,500",
+    squareFeet: "5,800 sq ft",
     lotSize: "1 acres",
     notes: [],
     dateAdded: "2025-07-13"
@@ -65,7 +69,8 @@ const initialProperties: Property[] = [
     type: "lease",
     status: "listed",
     price: "$2,500/month",
-    lotSize: "1,200 sq ft",
+    squareFeet: "1,200 sq ft",
+    lotSize: "-",
     notes: [
       { id: "4", content: "Perfect for retail business", date: "2025-07-13" }
     ],
@@ -77,7 +82,8 @@ const initialProperties: Property[] = [
     type: "business",
     status: "sold",
     price: "$450,000",
-    lotSize: "5,000 sq ft",
+    squareFeet: "5,000 sq ft",
+    lotSize: "0.5 acres",
     notes: [],
     dateAdded: "2025-07-11"
   },
@@ -87,7 +93,8 @@ const initialProperties: Property[] = [
     type: "lease",
     status: "pending",
     price: "$3,200/month",
-    lotSize: "2,400 sq ft",
+    squareFeet: "2,400 sq ft",
+    lotSize: "-",
     notes: [
       { id: "5", content: "High-tech office space", date: "2025-07-10" },
       { id: "6", content: "Multiple interested parties", date: "2025-07-12" }
@@ -100,7 +107,8 @@ const initialProperties: Property[] = [
     type: "business",
     status: "withdrawn",
     price: "$320,000",
-    lotSize: "3,800 sq ft",
+    squareFeet: "3,800 sq ft",
+    lotSize: "0.8 acres",
     notes: [
       { id: "7", content: "Owner decided not to sell", date: "2025-07-11" }
     ],
@@ -113,7 +121,8 @@ const initialProperties: Property[] = [
     type: "lease",
     status: "listed",
     price: "$1,800/month",
-    lotSize: "950 sq ft",
+    squareFeet: "950 sq ft",
+    lotSize: "-",
     notes: [],
     dateAdded: "2025-07-08"
   },
@@ -123,6 +132,7 @@ const initialProperties: Property[] = [
     type: "sale",
     status: "pending",
     price: "$425,000",
+    squareFeet: "1,800 sq ft",
     lotSize: "0.25 acres",
     notes: [
       { id: "8", content: "Offer received", date: "2025-07-12" }
@@ -135,7 +145,8 @@ const initialProperties: Property[] = [
     type: "lease",
     status: "listed",
     price: "$2,200/month",
-    lotSize: "1,500 sq ft",
+    squareFeet: "1,500 sq ft",
+    lotSize: "-",
     notes: [],
     dateAdded: "2025-07-06"
   }
@@ -232,6 +243,12 @@ const Index = () => {
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     Price
+                  </th>
+                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    Square Feet
+                  </th>
+                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    Lot Size
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     Status
