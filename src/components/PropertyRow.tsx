@@ -133,7 +133,7 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
         <div className="space-y-1">
           <div className="font-medium text-foreground text-sm">{property.address}</div>
           {property.nickname && (
-            <div className="text-sm font-semibold text-crest-red">{property.nickname}</div>
+            <div className="text-lg font-bold text-crest-red bg-crest-red/10 px-2 py-1 rounded-md border border-crest-red/20">{property.nickname}</div>
           )}
           {isEditingNickname ? (
             <div className="flex items-center gap-2">
