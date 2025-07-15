@@ -45,18 +45,18 @@ export function CompactHeader({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2">
-              <img src={crestLogo} alt="Crest Realty Logo" className="w-20 h-12 object-contain" />
+              <img src={crestLogo} alt="Crest Realty Logo" className="w-32 h-20 object-contain" />
             </div>
             
             <div className="flex items-center gap-2 ml-6">
               <Button 
                 variant="secondary" 
                 size="sm"
-                className="h-8 px-3 text-xs"
+                className="bg-red-600 text-white border-red-600 hover:bg-red-700 h-8 px-3 text-xs"
               >
                 <Building2 className="w-3 h-3" />
                 Listings
-                <Badge variant="outline" className="ml-1 h-4 px-1 text-xs">
+                <Badge variant="outline" className="bg-white/20 text-white border-white/30 ml-1 h-4 px-1 text-xs">
                   {counts.total}
                 </Badge>
               </Button>
