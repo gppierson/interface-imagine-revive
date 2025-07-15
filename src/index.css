@@ -40,6 +40,10 @@ All colors MUST be HSL.
     --warning: 38 92% 50%;
     --info: 217 91% 60%;
 
+    /* CREST brand red */
+    --crest-red: 0 79% 41%;
+    --crest-red-foreground: 0 0% 100%;
+
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;

@@ -15,11 +15,12 @@ interface Property {
   price?: string;
   squareFeet?: string;
   lotSize?: string;
-  notes: Array<{
-    id: string;
-    content: string;
-    date: string;
-  }>;
+    notes: Array<{
+      id: string;
+      content: string;
+      date: string;
+      author?: string;
+    }>;
   dateAdded: string;
   leaseCommencement?: Date;
   sellerDisclosureDeadline?: Date;
@@ -38,10 +39,10 @@ const initialProperties: Property[] = [
     squareFeet: "2,450 sq ft",
     lotSize: "2.35 acres",
     notes: [
-      { id: "1", content: "testing", date: "2025-07-13" },
-      { id: "2", content: "testing", date: "2025-07-13" }
+      { id: "1", content: "testing", date: "7/13/2025", author: "John Doe" },
+      { id: "2", content: "testing", date: "7/13/2025", author: "Jane Smith" }
     ],
-    dateAdded: "2025-07-13"
+    dateAdded: "7/13/2025"
   },
   {
     id: "2", 
@@ -52,9 +53,9 @@ const initialProperties: Property[] = [
     squareFeet: "3,200 sq ft",
     lotSize: "0.37 acres",
     notes: [
-      { id: "3", content: "test", date: "2025-07-13" }
+      { id: "3", content: "test", date: "7/13/2025", author: "John Doe" }
     ],
-    dateAdded: "2025-07-13"
+    dateAdded: "7/13/2025"
   },
   {
     id: "3",
@@ -65,7 +66,7 @@ const initialProperties: Property[] = [
     squareFeet: "5,800 sq ft",
     lotSize: "1 acres",
     notes: [],
-    dateAdded: "2025-07-13"
+    dateAdded: "7/13/2025"
   },
   {
     id: "4",
@@ -76,9 +77,9 @@ const initialProperties: Property[] = [
     squareFeet: "1,200 sq ft",
     lotSize: "0.1 acres",
     notes: [
-      { id: "4", content: "Perfect for retail business", date: "2025-07-13" }
+      { id: "4", content: "Perfect for retail business", date: "7/13/2025", author: "Sarah Wilson" }
     ],
-    dateAdded: "2025-07-12"
+    dateAdded: "7/12/2025"
   },
   {
     id: "5",
@@ -89,7 +90,7 @@ const initialProperties: Property[] = [
     squareFeet: "5,000 sq ft",
     lotSize: "0.5 acres",
     notes: [],
-    dateAdded: "2025-07-11"
+    dateAdded: "7/11/2025"
   },
   {
     id: "6",
@@ -100,10 +101,10 @@ const initialProperties: Property[] = [
     squareFeet: "2,400 sq ft",
     lotSize: "0.5 acres",
     notes: [
-      { id: "5", content: "High-tech office space", date: "2025-07-10" },
-      { id: "6", content: "Multiple interested parties", date: "2025-07-12" }
+      { id: "5", content: "High-tech office space", date: "7/10/2025", author: "Mike Johnson" },
+      { id: "6", content: "Multiple interested parties", date: "7/12/2025", author: "Emily Davis" }
     ],
-    dateAdded: "2025-07-10"
+    dateAdded: "7/10/2025"
   },
   {
     id: "7",
@@ -114,9 +115,9 @@ const initialProperties: Property[] = [
     squareFeet: "3,800 sq ft",
     lotSize: "0.8 acres",
     notes: [
-      { id: "7", content: "Owner decided not to sell", date: "2025-07-11" }
+      { id: "7", content: "Owner decided not to sell", date: "7/11/2025", author: "Tom Brown" }
     ],
-    dateAdded: "2025-07-09"
+    dateAdded: "7/9/2025"
   },
   // Additional properties to match the 40 total count
   {
@@ -128,7 +129,7 @@ const initialProperties: Property[] = [
     squareFeet: "950 sq ft",
     lotSize: "0.2 acres",
     notes: [],
-    dateAdded: "2025-07-08"
+    dateAdded: "7/8/2025"
   },
   {
     id: "9",
@@ -139,9 +140,9 @@ const initialProperties: Property[] = [
     squareFeet: "1,800 sq ft",
     lotSize: "0.25 acres",
     notes: [
-      { id: "8", content: "Offer received", date: "2025-07-12" }
+      { id: "8", content: "Offer received", date: "7/12/2025", author: "Lisa Green" }
     ],
-    dateAdded: "2025-07-07"
+    dateAdded: "7/7/2025"
   },
   {
     id: "10",
@@ -152,7 +153,7 @@ const initialProperties: Property[] = [
     squareFeet: "1,500 sq ft",
     lotSize: "0.3 acres",
     notes: [],
-    dateAdded: "2025-07-06"
+    dateAdded: "7/6/2025"
   }
 ];
 

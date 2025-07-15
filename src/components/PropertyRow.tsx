@@ -14,6 +14,7 @@ interface Note {
   id: string;
   content: string;
   date: string;
+  author?: string;
 }
 
 interface Property {
@@ -54,7 +55,8 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
       const note: Note = {
         id: Date.now().toString(),
         content: newNote.trim(),
-        date: new Date().toLocaleDateString()
+        date: new Date().toLocaleDateString('en-US'),
+        author: "John Doe" // TODO: Replace with actual user name
       };
       onUpdate(property.id, { 
         notes: [...property.notes, note] 
@@ -89,7 +91,7 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
           )}
         >
           <CalendarIcon className="mr-2 h-3 w-3" />
-          {date ? format(date, "PPP") : <span>{placeholder}</span>}
+          {date ? format(date, "MM/dd/yyyy") : <span>{placeholder}</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
@@ -130,6 +132,9 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
       <td className="py-3 px-4 min-w-0">
         <div className="space-y-1">
           <div className="font-medium text-foreground text-sm">{property.address}</div>
+          {property.nickname && (
+            <div className="text-sm font-semibold text-crest-red">{property.nickname}</div>
+          )}
           {isEditingNickname ? (
             <div className="flex items-center gap-2">
               <Input
@@ -156,7 +161,7 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
               className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
             >
               <Edit2 className="w-3 h-3" />
-              {property.nickname || "Add nickname..."}
+              {!property.nickname && "Add nickname..."}
             </button>
           )}
         </div>
@@ -262,7 +267,10 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
                   property.notes.map((note, index) => (
                     <div key={note.id} className="bg-background p-3 rounded-lg border">
                       <div className="text-sm text-foreground mb-1">{note.content}</div>
-                      <div className="text-xs text-muted-foreground">{note.date}</div>
+                      <div className="text-xs text-muted-foreground">
+                        {new Date(note.date).toLocaleDateString('en-US')}
+                        {note.author && <span> • {note.author}</span>}
+                      </div>
                     </div>
                   ))
                 ) : (
