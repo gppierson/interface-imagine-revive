@@ -16,12 +16,12 @@ export function PropertyHeader({ listingsCount, clientsCount, lastUpdated }: Pro
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-4">
-              <div className="bg-white/20 rounded-lg p-3">
-                <Building2 className="w-8 h-8 text-white" />
+              <div className="bg-white/20 rounded-lg p-4">
+                <Building2 className="w-10 h-10 text-white" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-white">CREST REALTY</h1>
-                <p className="text-white/80 text-base">Commercial Property Management System</p>
+                <h1 className="text-4xl font-bold text-white">CREST REALTY</h1>
+                <p className="text-white/80 text-lg">Commercial Property Management System</p>
               </div>
             </div>
           </div>
@@ -42,18 +42,18 @@ export function PropertyHeader({ listingsCount, clientsCount, lastUpdated }: Pro
         <div className="flex items-center gap-6">
           <Button 
             variant="secondary" 
-            className="bg-crest-red text-crest-red-foreground border-crest-red hover:bg-crest-red/90 h-12 px-6"
+            className="bg-red-600 text-white border-red-600 hover:bg-red-700 h-12 px-6"
           >
             <Building2 className="w-5 h-5" />
             <span className="font-medium">Listings</span>
-            <Badge variant="secondary" className="bg-white/20 text-crest-red-foreground border-white/30 ml-2">
+            <Badge variant="secondary" className="bg-white/20 text-white border-white/30 ml-2">
               {listingsCount}
             </Badge>
           </Button>
           
           <Button 
             variant="ghost" 
-            className="text-white/70 hover:text-white hover:bg-crest-red/20 h-12 px-6"
+            className="text-white/70 hover:text-white hover:bg-red-600/20 h-12 px-6"
           >
             <Users className="w-5 h-5" />
             <span className="font-medium">Clients</span>
