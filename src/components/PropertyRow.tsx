@@ -131,10 +131,10 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
       {/* Address & Nickname */}
       <td className="py-3 px-4 min-w-0">
         <div className="space-y-1">
-          <div className="font-medium text-foreground text-sm">{property.address}</div>
           {property.nickname && (
-            <div className="text-lg font-bold text-crest-red bg-crest-red/10 px-2 py-1 rounded-md border border-crest-red/20">{property.nickname}</div>
+            <div className="text-base font-bold text-crest-red">{property.nickname}</div>
           )}
+          <div className="font-medium text-foreground text-sm">{property.address}</div>
           {isEditingNickname ? (
             <div className="flex items-center gap-2">
               <Input
