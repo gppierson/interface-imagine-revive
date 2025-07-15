@@ -73,9 +73,9 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
   };
 
   const typeConfig = {
-    sale: { label: "Sale", color: "bg-primary/10 text-primary border-primary/20" },
-    lease: { label: "Lease", color: "bg-info/10 text-info border-info/20" },
-    business: { label: "Business", color: "bg-warning/10 text-warning border-warning/20" }
+    sale: { label: "Sale", color: "bg-green-500/10 text-green-600 border-green-500/20", textColor: "text-green-600" },
+    lease: { label: "Lease", color: "bg-info/10 text-info border-info/20", textColor: "text-info" },
+    business: { label: "Business", color: "bg-warning/10 text-warning border-warning/20", textColor: "text-warning" }
   };
 
   const StatusIcon = statusConfig[property.status].icon;
@@ -134,7 +134,7 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
           {property.nickname && (
             <div className="text-base font-bold text-crest-red">{property.nickname}</div>
           )}
-          <div className="font-medium text-foreground text-sm">{property.address}</div>
+          <div className={cn("font-medium text-sm", typeConfig[property.type].textColor)}>{property.address}</div>
           {isEditingNickname ? (
             <div className="flex items-center gap-2">
               <Input
