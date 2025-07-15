@@ -132,7 +132,7 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
       <td className="py-3 px-4 min-w-0">
         <div className="space-y-1">
           {property.nickname && (
-            <div className="text-base font-bold text-crest-red">{property.nickname}</div>
+            <div className="text-sm font-medium text-crest-red">{property.nickname}</div>
           )}
           <div className={cn("font-medium text-sm", typeConfig[property.type].textColor)}>{property.address}</div>
           {isEditingNickname ? (
