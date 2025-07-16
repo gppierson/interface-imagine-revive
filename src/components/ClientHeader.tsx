@@ -16,7 +16,6 @@ interface ClientHeaderProps {
     all: number;
     "New Lead": number;
     "Looking": number;
-    "Viewing": number;
     "Negotiating": number;
     "On Hold": number;
     "Done": number;
@@ -107,14 +106,6 @@ export function ClientHeader({
                 Looking ({counts["Looking"]})
               </Button>
               <Button
-                variant={statusFilter === "Viewing" ? "default" : "outline"}
-                size="sm"
-                onClick={() => onStatusFilterChange("Viewing")}
-                className="h-7 px-2 text-xs"
-              >
-                Viewing ({counts["Viewing"]})
-              </Button>
-              <Button
                 variant={statusFilter === "Negotiating" ? "default" : "outline"}
                 size="sm"
                 onClick={() => onStatusFilterChange("Negotiating")}
@@ -147,7 +138,7 @@ export function ClientHeader({
                 <SelectItem value="All">All</SelectItem>
                 <SelectItem value="New Lead">New Lead</SelectItem>
                 <SelectItem value="Looking">Looking</SelectItem>
-                <SelectItem value="Viewing">Viewing</SelectItem>
+                
                 <SelectItem value="Negotiating">Negotiating</SelectItem>
                 <SelectItem value="On Hold">On Hold</SelectItem>
                 <SelectItem value="Done">Done</SelectItem>

@@ -16,14 +16,13 @@ interface ClientRowProps {
 const statusConfig: Record<ClientStatus, { variant: "default" | "secondary" | "destructive" | "outline", className: string }> = {
   "New Lead": { variant: "default", className: "bg-blue-100 text-blue-800 hover:bg-blue-200" },
   "Looking": { variant: "default", className: "bg-blue-100 text-blue-800 hover:bg-blue-200" },
-  "Viewing": { variant: "default", className: "bg-blue-100 text-blue-800 hover:bg-blue-200" },
   "Negotiating": { variant: "default", className: "bg-yellow-100 text-yellow-800 hover:bg-yellow-200" },
   "On Hold": { variant: "destructive", className: "bg-red-100 text-red-800 hover:bg-red-200" },
   "Done": { variant: "default", className: "bg-green-100 text-green-800 hover:bg-green-200" },
   "Lost": { variant: "destructive", className: "bg-red-100 text-red-800 hover:bg-red-200" }
 };
 
-const statusOptions: ClientStatus[] = ["New Lead", "Looking", "Viewing", "Negotiating", "On Hold", "Done", "Lost"];
+const statusOptions: ClientStatus[] = ["New Lead", "Looking", "Negotiating", "On Hold", "Done", "Lost"];
 
 export const ClientRow = ({ client, onUpdateClient, onAddNote }: ClientRowProps) => {
   const [isEditingStatus, setIsEditingStatus] = useState(false);
@@ -130,14 +129,18 @@ export const ClientRow = ({ client, onUpdateClient, onAddNote }: ClientRowProps)
       {/* Notes */}
       <td className="py-3 px-4 min-w-0">
         <div className="space-y-2 max-w-sm">
-          {client.notes.slice(0, 2).map((note) => (
-            <div key={note.id} className="text-xs bg-muted/50 p-2 rounded border">
-              <div className="text-muted-foreground mb-1">
-                {formatDate(note.created_at)}
+          {client.notes.length > 0 ? (
+            client.notes.slice(0, 2).map((note) => (
+              <div key={note.id} className="bg-background p-3 rounded-lg border">
+                <div className="text-sm text-foreground mb-1">{note.note_text}</div>
+                <div className="text-xs text-muted-foreground">
+                  {formatDate(note.created_at)}
+                </div>
               </div>
-              <div className="text-foreground">{note.note_text}</div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <div className="text-sm text-muted-foreground">No notes yet.</div>
+          )}
           
           {client.notes.length > 2 && (
             <div className="text-xs text-muted-foreground">
@@ -152,31 +155,18 @@ export const ClientRow = ({ client, onUpdateClient, onAddNote }: ClientRowProps)
                 onChange={(e) => setNewNoteText(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Add a note..."
-                className="text-xs resize-none"
-                rows={2}
+                className="resize-none text-sm"
+                rows={3}
                 autoFocus
               />
-              <div className="flex gap-1">
-                <Button
-                  size="sm"
-                  onClick={handleAddNote}
-                  disabled={!newNoteText.trim()}
-                  className="h-6 px-2 text-xs"
-                >
-                  Add
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    setShowAddNote(false);
-                    setNewNoteText("");
-                  }}
-                  className="h-6 px-2 text-xs"
-                >
-                  Cancel
-                </Button>
-              </div>
+              <Button 
+                size="sm" 
+                onClick={handleAddNote}
+                disabled={!newNoteText.trim()}
+                className="text-xs"
+              >
+                Add Note
+              </Button>
             </div>
           ) : (
             <Button

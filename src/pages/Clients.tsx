@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { ClientHeader } from "@/components/ClientHeader";
 import { ClientRow } from "@/components/ClientRow";
 
-export type ClientStatus = "New Lead" | "Looking" | "Viewing" | "Negotiating" | "On Hold" | "Done" | "Lost";
+export type ClientStatus = "New Lead" | "Looking" | "Negotiating" | "On Hold" | "Done" | "Lost";
 
 export interface ClientNote {
   id: string;
@@ -49,7 +49,7 @@ const initialClients: Client[] = [
     phone: "(555) 987-6543",
     email: "sarah@johnsonretail.com",
     looking_for: "Retail storefront, high foot traffic area",
-    status: "Viewing",
+    status: "Looking",
     created_at: "2024-01-10",
     updated_at: "2024-01-18",
     notes: [
@@ -89,6 +89,15 @@ const Clients = () => {
   const [clients, setClients] = useState<Client[]>(initialClients);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<ClientStatus | "All">("All");
+  const [showAddClient, setShowAddClient] = useState(false);
+  const [newClient, setNewClient] = useState({
+    name: "",
+    company: "",
+    phone: "",
+    email: "",
+    looking_for: "",
+    status: "New Lead" as ClientStatus
+  });
 
   const handleUpdateClient = (id: string, updates: Partial<Client>) => {
     setClients(prev => prev.map(client => 
@@ -114,6 +123,29 @@ const Clients = () => {
           }
         : client
     ));
+  };
+
+  const handleAddClient = () => {
+    if (newClient.name.trim() && newClient.looking_for.trim()) {
+      const client: Client = {
+        id: Date.now().toString(),
+        ...newClient,
+        created_at: new Date().toISOString().split('T')[0],
+        updated_at: new Date().toISOString().split('T')[0],
+        notes: []
+      };
+      
+      setClients(prev => [client, ...prev]);
+      setNewClient({
+        name: "",
+        company: "",
+        phone: "",
+        email: "",
+        looking_for: "",
+        status: "New Lead"
+      });
+      setShowAddClient(false);
+    }
   };
 
   const filteredAndSortedClients = useMemo(() => {
@@ -144,7 +176,6 @@ const Clients = () => {
       all: clients.length,
       "New Lead": clients.filter(c => c.status === "New Lead").length,
       "Looking": clients.filter(c => c.status === "Looking").length,
-      "Viewing": clients.filter(c => c.status === "Viewing").length,
       "Negotiating": clients.filter(c => c.status === "Negotiating").length,
       "On Hold": clients.filter(c => c.status === "On Hold").length,
       "Done": clients.filter(c => c.status === "Done").length,
@@ -163,7 +194,99 @@ const Clients = () => {
       />
       
       <div className="max-w-7xl mx-auto px-6 py-6">
+        {/* Add Client Form */}
+        {showAddClient && (
+          <div className="bg-white rounded-lg shadow-sm border border-border p-6 mb-6">
+            <h3 className="text-lg font-semibold mb-4">Add New Client</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-1">Name *</label>
+                <input
+                  type="text"
+                  value={newClient.name}
+                  onChange={(e) => setNewClient(prev => ({ ...prev, name: e.target.value }))}
+                  className="w-full px-3 py-2 border border-border rounded-md text-sm"
+                  placeholder="Enter client name"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-1">Company</label>
+                <input
+                  type="text"
+                  value={newClient.company}
+                  onChange={(e) => setNewClient(prev => ({ ...prev, company: e.target.value }))}
+                  className="w-full px-3 py-2 border border-border rounded-md text-sm"
+                  placeholder="Enter company name"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-1">Phone</label>
+                <input
+                  type="text"
+                  value={newClient.phone}
+                  onChange={(e) => setNewClient(prev => ({ ...prev, phone: e.target.value }))}
+                  className="w-full px-3 py-2 border border-border rounded-md text-sm"
+                  placeholder="Enter phone number"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-1">Email</label>
+                <input
+                  type="email"
+                  value={newClient.email}
+                  onChange={(e) => setNewClient(prev => ({ ...prev, email: e.target.value }))}
+                  className="w-full px-3 py-2 border border-border rounded-md text-sm"
+                  placeholder="Enter email address"
+                />
+              </div>
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-foreground mb-1">Looking For *</label>
+              <textarea
+                value={newClient.looking_for}
+                onChange={(e) => setNewClient(prev => ({ ...prev, looking_for: e.target.value }))}
+                className="w-full px-3 py-2 border border-border rounded-md text-sm resize-none"
+                rows={2}
+                placeholder="What is the client looking for?"
+              />
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={handleAddClient}
+                disabled={!newClient.name.trim() || !newClient.looking_for.trim()}
+                className="bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Add Client
+              </button>
+              <button
+                onClick={() => {
+                  setShowAddClient(false);
+                  setNewClient({
+                    name: "",
+                    company: "",
+                    phone: "",
+                    email: "",
+                    looking_for: "",
+                    status: "New Lead"
+                  });
+                }}
+                className="bg-muted text-muted-foreground px-4 py-2 rounded-md text-sm hover:bg-muted/80"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
+
         <div className="bg-white rounded-lg shadow-sm border border-border overflow-hidden">
+          <div className="p-4 border-b border-border">
+            <button
+              onClick={() => setShowAddClient(!showAddClient)}
+              className="bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm hover:bg-primary/90"
+            >
+              {showAddClient ? 'Cancel' : 'Add New Client'}
+            </button>
+          </div>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-muted/50 border-b border-border">
