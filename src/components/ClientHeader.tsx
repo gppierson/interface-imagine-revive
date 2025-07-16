@@ -2,43 +2,35 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Search, Filter, SortAsc, Building2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Search, Filter, Users, Building2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import crestLogo from "@/assets/crest-realty-logo.svg";
+import type { ClientStatus } from "@/pages/Clients";
 
-type PropertyType = "all" | "sale" | "lease" | "business";
-type SortOption = "address" | "date" | "status";
-type StatusFilter = "all" | "listed" | "pending" | "sold" | "withdrawn";
-
-interface CompactHeaderProps {
-  propertyType: PropertyType;
-  onPropertyTypeChange: (type: PropertyType) => void;
-  statusFilter: StatusFilter;
-  onStatusFilterChange: (status: StatusFilter) => void;
-  sortBy: SortOption;
-  onSortChange: (sort: SortOption) => void;
+interface ClientHeaderProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
+  statusFilter: ClientStatus | "All";
+  onStatusFilterChange: (status: ClientStatus | "All") => void;
   counts: {
-    sale: number;
-    lease: number;
-    business: number;
-    total: number;
+    all: number;
+    "New Lead": number;
+    "Looking": number;
+    "Viewing": number;
+    "Negotiating": number;
+    "On Hold": number;
+    "Done": number;
+    "Lost": number;
   };
 }
 
-export function CompactHeader({
-  propertyType,
-  onPropertyTypeChange,
-  statusFilter,
-  onStatusFilterChange,
-  sortBy,
-  onSortChange,
+export function ClientHeader({
   searchQuery,
   onSearchChange,
+  statusFilter,
+  onStatusFilterChange,
   counts
-}: CompactHeaderProps) {
+}: ClientHeaderProps) {
   const navigate = useNavigate();
   return (
     <div className="border-b border-border bg-background">
@@ -52,26 +44,27 @@ export function CompactHeader({
             
             <div className="flex items-center gap-2 ml-6">
               <Button 
-                variant="secondary" 
+                variant="ghost" 
                 size="sm"
-                className="bg-red-600 text-white border-red-600 hover:bg-red-700 h-8 px-3 text-xs"
+                onClick={() => navigate("/")}
+                className="h-8 px-3 text-xs"
               >
                 <Building2 className="w-3 h-3" />
                 Listings
-                <Badge variant="outline" className="bg-white/20 text-white border-white/30 ml-1 h-4 px-1 text-xs">
-                  {counts.total}
+                <Badge variant="outline" className="ml-1 h-4 px-1 text-xs">
+                  0
                 </Badge>
               </Button>
               
               <Button 
-                variant="ghost" 
+                variant="secondary" 
                 size="sm"
-                onClick={() => navigate("/clients")}
-                className="h-8 px-3 text-xs"
+                className="bg-red-600 text-white border-red-600 hover:bg-red-700 h-8 px-3 text-xs"
               >
+                <Users className="w-3 h-3" />
                 Clients
-                <Badge variant="outline" className="ml-1 h-4 px-1 text-xs">
-                  0
+                <Badge variant="outline" className="bg-white/20 text-white border-white/30 ml-1 h-4 px-1 text-xs">
+                  {counts.all}
                 </Badge>
               </Button>
             </div>
@@ -87,39 +80,47 @@ export function CompactHeader({
       <div className="px-6 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            {/* Property Type Filter */}
+            {/* Status Filter Buttons */}
             <div className="flex items-center gap-1">
               <Button
-                variant={propertyType === "all" ? "default" : "outline"}
+                variant={statusFilter === "All" ? "default" : "outline"}
                 size="sm"
-                onClick={() => onPropertyTypeChange("all")}
+                onClick={() => onStatusFilterChange("All")}
                 className="h-7 px-2 text-xs"
               >
-                All ({counts.total})
+                All ({counts.all})
               </Button>
               <Button
-                variant={propertyType === "sale" ? "default" : "outline"}
+                variant={statusFilter === "New Lead" ? "default" : "outline"}
                 size="sm"
-                onClick={() => onPropertyTypeChange("sale")}
+                onClick={() => onStatusFilterChange("New Lead")}
                 className="h-7 px-2 text-xs"
               >
-                Sale ({counts.sale})
+                New Lead ({counts["New Lead"]})
               </Button>
               <Button
-                variant={propertyType === "lease" ? "default" : "outline"}
+                variant={statusFilter === "Looking" ? "default" : "outline"}
                 size="sm"
-                onClick={() => onPropertyTypeChange("lease")}
+                onClick={() => onStatusFilterChange("Looking")}
                 className="h-7 px-2 text-xs"
               >
-                Lease ({counts.lease})
+                Looking ({counts["Looking"]})
               </Button>
               <Button
-                variant={propertyType === "business" ? "default" : "outline"}
+                variant={statusFilter === "Viewing" ? "default" : "outline"}
                 size="sm"
-                onClick={() => onPropertyTypeChange("business")}
+                onClick={() => onStatusFilterChange("Viewing")}
                 className="h-7 px-2 text-xs"
               >
-                Business ({counts.business})
+                Viewing ({counts["Viewing"]})
+              </Button>
+              <Button
+                variant={statusFilter === "Negotiating" ? "default" : "outline"}
+                size="sm"
+                onClick={() => onStatusFilterChange("Negotiating")}
+                className="h-7 px-2 text-xs"
+              >
+                Negotiating ({counts["Negotiating"]})
               </Button>
             </div>
           </div>
@@ -129,38 +130,28 @@ export function CompactHeader({
             <div className="relative">
               <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-muted-foreground w-3 h-3" />
               <Input
-                placeholder="Search..."
+                placeholder="Search clients..."
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)}
                 className="pl-7 h-7 w-48 text-xs"
               />
             </div>
 
-            {/* Status Filter */}
+            {/* Status Filter Dropdown */}
             <Select value={statusFilter} onValueChange={onStatusFilterChange}>
-              <SelectTrigger className="w-24 h-7 text-xs">
+              <SelectTrigger className="w-32 h-7 text-xs">
                 <Filter className="w-3 h-3" />
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All</SelectItem>
-                <SelectItem value="listed">Listed</SelectItem>
-                <SelectItem value="pending">Pending</SelectItem>
-                <SelectItem value="sold">Sold</SelectItem>
-                <SelectItem value="withdrawn">Withdrawn</SelectItem>
-              </SelectContent>
-            </Select>
-
-            {/* Sort */}
-            <Select value={sortBy} onValueChange={onSortChange}>
-              <SelectTrigger className="w-24 h-7 text-xs">
-                <SortAsc className="w-3 h-3" />
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="address">Address</SelectItem>
-                <SelectItem value="date">Date</SelectItem>
-                <SelectItem value="status">Status</SelectItem>
+                <SelectItem value="All">All</SelectItem>
+                <SelectItem value="New Lead">New Lead</SelectItem>
+                <SelectItem value="Looking">Looking</SelectItem>
+                <SelectItem value="Viewing">Viewing</SelectItem>
+                <SelectItem value="Negotiating">Negotiating</SelectItem>
+                <SelectItem value="On Hold">On Hold</SelectItem>
+                <SelectItem value="Done">Done</SelectItem>
+                <SelectItem value="Lost">Lost</SelectItem>
               </SelectContent>
             </Select>
           </div>
