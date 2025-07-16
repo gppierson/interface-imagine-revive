@@ -36,33 +36,32 @@ export function ClientHeader({
       {/* Top Header */}
       <div className="px-4 sm:px-6 py-4 border-b border-border/50">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-12">
             <div className="flex items-center gap-2">
               <img src={crestLogo} alt="Crest Realty Logo" className="w-20 h-12 sm:w-28 sm:h-16 object-contain" />
             </div>
             
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <Button 
-                variant="ghost" 
+                variant="outline"
                 size="sm"
                 onClick={() => navigate("/")}
-                className="h-10 sm:h-8 px-4 sm:px-3 text-sm sm:text-xs"
+                className="h-10 px-6 text-sm font-semibold border-2 border-muted-foreground/20 hover:border-crest-red hover:text-crest-red hover:bg-crest-red/5 transition-all duration-200 shadow-sm hover:shadow-md"
               >
-                <Building2 className="w-4 h-4 sm:w-3 sm:h-3" />
-                Listings
-                <Badge variant="outline" className="ml-1 h-5 sm:h-4 px-2 sm:px-1 text-sm sm:text-xs">
+                <Building2 className="w-4 h-4 mr-2" />
+                <span className="text-muted-foreground group-hover:text-crest-red">Listings</span>
+                <Badge variant="outline" className="ml-2 h-5 px-2 text-xs border-muted-foreground/30 text-muted-foreground">
                   0
                 </Badge>
               </Button>
               
               <Button 
-                variant="secondary" 
+                variant="crest-primary"
                 size="sm"
-                className="bg-red-600 text-white border-red-600 hover:bg-red-700 h-10 sm:h-8 px-4 sm:px-3 text-sm sm:text-xs"
+                className="h-10 px-6 text-sm font-semibold shadow-md hover:shadow-lg transition-all duration-200 border-0"
               >
-                <Users className="w-4 h-4 sm:w-3 sm:h-3" />
-                Clients
-                <Badge variant="outline" className="bg-white/20 text-white border-white/30 ml-1 h-5 sm:h-4 px-2 sm:px-1 text-sm sm:text-xs">
+                <span className="text-white mr-2">Clients</span>
+                <Badge variant="secondary" className="ml-0 h-5 px-2 text-xs bg-white/90 text-crest-red border-0 shadow-sm">
                   {counts.all}
                 </Badge>
               </Button>
