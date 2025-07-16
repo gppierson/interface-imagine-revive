@@ -134,7 +134,7 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
           {property.nickname && (
             <div className="text-sm font-medium text-crest-red">{property.nickname}</div>
           )}
-          <div className={cn("font-medium text-sm", typeConfig[property.type].textColor)}>{property.address}</div>
+          <div className="font-medium text-sm text-foreground">{property.address}</div>
           {isEditingNickname ? (
             <div className="flex items-center gap-2">
               <Input
