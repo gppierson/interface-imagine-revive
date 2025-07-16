@@ -34,23 +34,23 @@ export function ClientHeader({
   return (
     <div className="border-b border-border bg-background">
       {/* Top Header */}
-      <div className="px-6 py-4 border-b border-border/50">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
+      <div className="px-4 sm:px-6 py-4 border-b border-border/50">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
             <div className="flex items-center gap-2">
-              <img src={crestLogo} alt="Crest Realty Logo" className="w-32 h-20 object-contain" />
+              <img src={crestLogo} alt="Crest Realty Logo" className="w-24 h-16 sm:w-32 sm:h-20 object-contain" />
             </div>
             
-            <div className="flex items-center gap-2 ml-6">
+            <div className="flex items-center gap-2">
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => navigate("/")}
-                className="h-8 px-3 text-xs"
+                className="h-10 sm:h-8 px-4 sm:px-3 text-sm sm:text-xs"
               >
-                <Building2 className="w-3 h-3" />
+                <Building2 className="w-4 h-4 sm:w-3 sm:h-3" />
                 Listings
-                <Badge variant="outline" className="ml-1 h-4 px-1 text-xs">
+                <Badge variant="outline" className="ml-1 h-5 sm:h-4 px-2 sm:px-1 text-sm sm:text-xs">
                   0
                 </Badge>
               </Button>
@@ -58,11 +58,11 @@ export function ClientHeader({
               <Button 
                 variant="secondary" 
                 size="sm"
-                className="bg-red-600 text-white border-red-600 hover:bg-red-700 h-8 px-3 text-xs"
+                className="bg-red-600 text-white border-red-600 hover:bg-red-700 h-10 sm:h-8 px-4 sm:px-3 text-sm sm:text-xs"
               >
-                <Users className="w-3 h-3" />
+                <Users className="w-4 h-4 sm:w-3 sm:h-3" />
                 Clients
-                <Badge variant="outline" className="bg-white/20 text-white border-white/30 ml-1 h-4 px-1 text-xs">
+                <Badge variant="outline" className="bg-white/20 text-white border-white/30 ml-1 h-5 sm:h-4 px-2 sm:px-1 text-sm sm:text-xs">
                   {counts.all}
                 </Badge>
               </Button>
@@ -70,22 +70,22 @@ export function ClientHeader({
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="text-xs text-muted-foreground">Last Updated 7/12/2025 at 10:26 PM</span>
+            <span className="text-xs text-muted-foreground hidden sm:block">Last Updated 7/12/2025 at 10:26 PM</span>
           </div>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="px-6 py-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
+      <div className="px-4 sm:px-6 py-3">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
             {/* Status Filter Buttons */}
-            <div className="flex items-center gap-1">
+            <div className="flex flex-wrap items-center gap-1">
               <Button
                 variant={statusFilter === "All" ? "default" : "outline"}
                 size="sm"
                 onClick={() => onStatusFilterChange("All")}
-                className="h-7 px-2 text-xs"
+                className="h-9 sm:h-7 px-3 sm:px-2 text-sm sm:text-xs"
               >
                 All ({counts.all})
               </Button>
@@ -93,7 +93,7 @@ export function ClientHeader({
                 variant={statusFilter === "New Lead" ? "default" : "outline"}
                 size="sm"
                 onClick={() => onStatusFilterChange("New Lead")}
-                className="h-7 px-2 text-xs"
+                className="h-9 sm:h-7 px-3 sm:px-2 text-sm sm:text-xs"
               >
                 New Lead ({counts["New Lead"]})
               </Button>
@@ -101,7 +101,7 @@ export function ClientHeader({
                 variant={statusFilter === "Looking" ? "default" : "outline"}
                 size="sm"
                 onClick={() => onStatusFilterChange("Looking")}
-                className="h-7 px-2 text-xs"
+                className="h-9 sm:h-7 px-3 sm:px-2 text-sm sm:text-xs"
               >
                 Looking ({counts["Looking"]})
               </Button>
@@ -109,36 +109,35 @@ export function ClientHeader({
                 variant={statusFilter === "Negotiating" ? "default" : "outline"}
                 size="sm"
                 onClick={() => onStatusFilterChange("Negotiating")}
-                className="h-7 px-2 text-xs"
+                className="h-9 sm:h-7 px-3 sm:px-2 text-sm sm:text-xs"
               >
                 Negotiating ({counts["Negotiating"]})
               </Button>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
             {/* Search */}
             <div className="relative">
-              <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-muted-foreground w-3 h-3" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4 sm:w-3 sm:h-3" />
               <Input
                 placeholder="Search clients..."
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)}
-                className="pl-7 h-7 w-48 text-xs"
+                className="pl-10 sm:pl-7 h-10 sm:h-7 w-full sm:w-48 text-sm sm:text-xs"
               />
             </div>
 
             {/* Status Filter Dropdown */}
             <Select value={statusFilter} onValueChange={onStatusFilterChange}>
-              <SelectTrigger className="w-32 h-7 text-xs">
-                <Filter className="w-3 h-3" />
+              <SelectTrigger className="w-36 sm:w-32 h-10 sm:h-7 text-sm sm:text-xs">
+                <Filter className="w-4 h-4 sm:w-3 sm:h-3" />
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="All">All</SelectItem>
                 <SelectItem value="New Lead">New Lead</SelectItem>
                 <SelectItem value="Looking">Looking</SelectItem>
-                
                 <SelectItem value="Negotiating">Negotiating</SelectItem>
                 <SelectItem value="On Hold">On Hold</SelectItem>
                 <SelectItem value="Done">Done</SelectItem>

@@ -193,10 +193,10 @@ const Clients = () => {
         counts={counts}
       />
       
-      <div className="max-w-7xl mx-auto px-6 py-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
         {/* Add Client Form */}
         {showAddClient && (
-          <div className="bg-white rounded-lg shadow-sm border border-border p-6 mb-6">
+          <div className="bg-white rounded-lg shadow-sm border border-border p-4 sm:p-6 mb-6">
             <h3 className="text-lg font-semibold mb-4">Add New Client</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div>
@@ -205,7 +205,7 @@ const Clients = () => {
                   type="text"
                   value={newClient.name}
                   onChange={(e) => setNewClient(prev => ({ ...prev, name: e.target.value }))}
-                  className="w-full px-3 py-2 border border-border rounded-md text-sm"
+                  className="w-full px-3 py-3 sm:py-2 border border-border rounded-md text-sm"
                   placeholder="Enter client name"
                 />
               </div>
@@ -215,7 +215,7 @@ const Clients = () => {
                   type="text"
                   value={newClient.company}
                   onChange={(e) => setNewClient(prev => ({ ...prev, company: e.target.value }))}
-                  className="w-full px-3 py-2 border border-border rounded-md text-sm"
+                  className="w-full px-3 py-3 sm:py-2 border border-border rounded-md text-sm"
                   placeholder="Enter company name"
                 />
               </div>
@@ -225,7 +225,7 @@ const Clients = () => {
                   type="text"
                   value={newClient.phone}
                   onChange={(e) => setNewClient(prev => ({ ...prev, phone: e.target.value }))}
-                  className="w-full px-3 py-2 border border-border rounded-md text-sm"
+                  className="w-full px-3 py-3 sm:py-2 border border-border rounded-md text-sm"
                   placeholder="Enter phone number"
                 />
               </div>
@@ -235,7 +235,7 @@ const Clients = () => {
                   type="email"
                   value={newClient.email}
                   onChange={(e) => setNewClient(prev => ({ ...prev, email: e.target.value }))}
-                  className="w-full px-3 py-2 border border-border rounded-md text-sm"
+                  className="w-full px-3 py-3 sm:py-2 border border-border rounded-md text-sm"
                   placeholder="Enter email address"
                 />
               </div>
@@ -245,16 +245,16 @@ const Clients = () => {
               <textarea
                 value={newClient.looking_for}
                 onChange={(e) => setNewClient(prev => ({ ...prev, looking_for: e.target.value }))}
-                className="w-full px-3 py-2 border border-border rounded-md text-sm resize-none"
-                rows={2}
+                className="w-full px-3 py-3 sm:py-2 border border-border rounded-md text-sm resize-none"
+                rows={3}
                 placeholder="What is the client looking for?"
               />
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <button
                 onClick={handleAddClient}
                 disabled={!newClient.name.trim() || !newClient.looking_for.trim()}
-                className="bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-primary text-primary-foreground px-6 py-3 sm:py-2 rounded-md text-sm hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Add Client
               </button>
@@ -270,7 +270,7 @@ const Clients = () => {
                     status: "New Lead"
                   });
                 }}
-                className="bg-muted text-muted-foreground px-4 py-2 rounded-md text-sm hover:bg-muted/80"
+                className="bg-muted text-muted-foreground px-6 py-3 sm:py-2 rounded-md text-sm hover:bg-muted/80"
               >
                 Cancel
               </button>
@@ -282,21 +282,21 @@ const Clients = () => {
           <div className="p-4 border-b border-border">
             <button
               onClick={() => setShowAddClient(!showAddClient)}
-              className="bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm hover:bg-primary/90"
+              className="bg-primary text-primary-foreground px-6 py-3 sm:px-4 sm:py-2 rounded-md text-sm hover:bg-primary/90"
             >
               {showAddClient ? 'Cancel' : 'Add New Client'}
             </button>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full min-w-[900px]">
               <thead className="bg-muted/50 border-b border-border">
                 <tr>
-                  <th className="text-left py-3 px-4 font-medium text-foreground">Client</th>
-                  <th className="text-left py-3 px-4 font-medium text-foreground">Contact</th>
-                  <th className="text-left py-3 px-4 font-medium text-foreground">Looking For</th>
-                  <th className="text-left py-3 px-4 font-medium text-foreground">Status</th>
-                  <th className="text-left py-3 px-4 font-medium text-foreground">Notes</th>
-                  <th className="text-left py-3 px-4 font-medium text-foreground">Updated</th>
+                  <th className="text-left py-3 px-4 text-xs sm:text-sm font-medium text-foreground">Client</th>
+                  <th className="text-left py-3 px-4 text-xs sm:text-sm font-medium text-foreground">Contact</th>
+                  <th className="text-left py-3 px-4 text-xs sm:text-sm font-medium text-foreground">Looking For</th>
+                  <th className="text-left py-3 px-4 text-xs sm:text-sm font-medium text-foreground">Status</th>
+                  <th className="text-left py-3 px-4 text-xs sm:text-sm font-medium text-foreground">Notes</th>
+                  <th className="text-left py-3 px-4 text-xs sm:text-sm font-medium text-foreground">Updated</th>
                 </tr>
               </thead>
               <tbody>

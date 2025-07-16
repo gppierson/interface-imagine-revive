@@ -227,7 +227,7 @@ const Index = () => {
         counts={counts}
       />
 
-      <div className="max-w-7xl mx-auto px-6 py-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
         {filteredAndSortedProperties.length === 0 ? (
           <div className="text-center py-12">
             <div className="text-muted-foreground mb-2">No properties found</div>
@@ -237,45 +237,47 @@ const Index = () => {
           </div>
         ) : (
           <div className="bg-card border border-border rounded-lg overflow-hidden">
-            <table className="w-full">
-              <thead className="bg-muted/30 border-b border-border">
-                <tr>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider w-8">
-                    
-                  </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    Type
-                  </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    Property
-                  </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    Price
-                  </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    Square Feet
-                  </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    Lot Size
-                  </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    Listed Date
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredAndSortedProperties.map((property) => (
-                  <PropertyRow
-                    key={property.id}
-                    property={property}
-                    onUpdate={handleUpdateProperty}
-                  />
-                ))}
-              </tbody>
-            </table>
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[800px]">
+                <thead className="bg-muted/30 border-b border-border">
+                  <tr>
+                    <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider w-8">
+                      
+                    </th>
+                    <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                      Type
+                    </th>
+                    <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                      Property
+                    </th>
+                    <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                      Price
+                    </th>
+                    <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                      Square Feet
+                    </th>
+                    <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                      Lot Size
+                    </th>
+                    <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                      Status
+                    </th>
+                    <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                      Listed Date
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredAndSortedProperties.map((property) => (
+                    <PropertyRow
+                      key={property.id}
+                      property={property}
+                      onUpdate={handleUpdateProperty}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
       </div>
