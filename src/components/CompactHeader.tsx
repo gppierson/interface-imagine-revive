@@ -54,11 +54,11 @@ export function CompactHeader({
               <Button 
                 variant="crest-primary"
                 size="sm"
-                className="h-10 px-6 text-sm font-semibold shadow-md hover:shadow-lg transition-all duration-200 border-0"
+                className="h-8 px-4 text-xs font-semibold shadow-md hover:shadow-lg transition-all duration-200 border-0"
               >
-                <Building2 className="w-4 h-4 mr-2" />
+                <Building2 className="w-3 h-3 mr-1" />
                 Listings
-                <Badge variant="secondary" className="ml-2 h-5 px-2 text-xs bg-white/90 text-crest-red border-0 shadow-sm">
+                <Badge variant="secondary" className="ml-1 h-4 px-1.5 text-xs bg-white/90 text-crest-red border-0 shadow-sm">
                   {counts.total}
                 </Badge>
               </Button>
@@ -67,10 +67,10 @@ export function CompactHeader({
                 variant="outline"
                 size="sm"
                 onClick={() => navigate("/clients")}
-                className="h-10 px-6 text-sm font-semibold border-2 border-muted-foreground/20 hover:border-crest-red hover:text-crest-red hover:bg-crest-red/5 transition-all duration-200 shadow-sm hover:shadow-md"
+                className="h-8 px-4 text-xs font-semibold border-2 border-muted-foreground/20 hover:border-crest-red hover:text-crest-red hover:bg-crest-red/5 transition-all duration-200 shadow-sm hover:shadow-md"
               >
                 <span className="text-muted-foreground group-hover:text-crest-red">Clients</span>
-                <Badge variant="outline" className="ml-2 h-5 px-2 text-xs border-muted-foreground/30 text-muted-foreground">
+                <Badge variant="outline" className="ml-1 h-4 px-1.5 text-xs border-muted-foreground/30 text-muted-foreground">
                   0
                 </Badge>
               </Button>
