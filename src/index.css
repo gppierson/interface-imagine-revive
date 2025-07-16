@@ -141,6 +141,10 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
+    /* iOS optimizations */
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
 
   /* Focus Management */
@@ -160,10 +164,10 @@ All colors MUST be HSL.
     scroll-behavior: smooth;
   }
 
-  /* Custom Scrollbar */
+  /* Mobile-optimized scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
   }
 
   ::-webkit-scrollbar-track {
@@ -171,12 +175,23 @@ All colors MUST be HSL.
   }
 
   ::-webkit-scrollbar-thumb {
-    background: hsl(var(--muted-foreground) / 0.3);
-    border-radius: 4px;
+    background: hsl(var(--muted-foreground) / 0.4);
+    border-radius: 3px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--muted-foreground) / 0.5);
+    background: hsl(var(--muted-foreground) / 0.6);
+  }
+
+  /* Mobile-specific improvements */
+  @media (max-width: 768px) {
+    body {
+      font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    input, textarea, select {
+      font-size: 16px; /* Prevents zoom on iOS */
+    }
   }
 }
 
@@ -233,5 +248,55 @@ All colors MUST be HSL.
   .form-field-focus:focus-within {
     box-shadow: var(--shadow-focus);
     border-color: hsl(var(--ring));
+  }
+
+  /* Mobile-optimized components */
+  .mobile-touch-target {
+    min-height: 48px;
+    min-width: 48px;
+    touch-action: manipulation;
+  }
+
+  .mobile-table-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: hsl(var(--background));
+    backdrop-filter: blur(8px);
+  }
+
+  .mobile-scroll-indicator {
+    position: relative;
+  }
+
+  .mobile-scroll-indicator::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 20px;
+    background: linear-gradient(to right, transparent, hsl(var(--background)));
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    .mobile-table-container {
+      position: relative;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .mobile-form-field {
+      min-height: 48px;
+      padding: 12px 16px;
+      font-size: 16px;
+    }
+    
+    .mobile-button {
+      min-height: 48px;
+      padding: 12px 16px;
+      font-size: 16px;
+    }
   }
 }

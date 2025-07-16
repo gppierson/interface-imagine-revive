@@ -237,9 +237,9 @@ const Index = () => {
           </div>
         ) : (
           <div className="bg-card border border-border rounded-lg overflow-hidden shadow-card">
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto mobile-table-container mobile-scroll-indicator">
               <table className="w-full min-w-[800px]">
-                <thead className="bg-gradient-header border-b border-border">
+                <thead className="bg-gradient-header border-b border-border mobile-table-header">
                   <tr>
                     <th className="text-left py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider w-8">
                       

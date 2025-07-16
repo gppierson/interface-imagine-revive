@@ -155,7 +155,7 @@ export const ClientRow = ({ client, onUpdateClient, onAddNote }: ClientRowProps)
                 onChange={(e) => setNewNoteText(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Add a note..."
-                className="resize-none text-sm"
+                className="resize-none text-base sm:text-sm mobile-form-field"
                 rows={3}
                 autoFocus
               />
@@ -163,7 +163,7 @@ export const ClientRow = ({ client, onUpdateClient, onAddNote }: ClientRowProps)
                 size="sm" 
                 onClick={handleAddNote}
                 disabled={!newNoteText.trim()}
-                className="text-xs shadow-sm hover:shadow-md transition-all duration-200"
+                className="text-base sm:text-xs shadow-sm hover:shadow-md transition-all duration-200 mobile-button mobile-touch-target"
               >
                 Add Note
               </Button>
@@ -173,9 +173,9 @@ export const ClientRow = ({ client, onUpdateClient, onAddNote }: ClientRowProps)
               variant="outline"
               size="sm"
               onClick={() => setShowAddNote(true)}
-              className="h-8 w-8 p-0 shadow-sm hover:shadow-md transition-all duration-200"
+              className="h-12 w-12 sm:h-8 sm:w-8 p-0 shadow-sm hover:shadow-md transition-all duration-200 mobile-touch-target"
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="w-5 h-5 sm:w-4 sm:h-4" />
             </Button>
           )}
         </div>

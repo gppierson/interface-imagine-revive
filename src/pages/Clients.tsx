@@ -205,7 +205,7 @@ const Clients = () => {
                   type="text"
                   value={newClient.name}
                   onChange={(e) => setNewClient(prev => ({ ...prev, name: e.target.value }))}
-                  className="w-full px-3 py-3 sm:py-2 border border-border rounded-md text-sm"
+                  className="w-full px-4 py-3 sm:py-2 border border-border rounded-md text-base sm:text-sm mobile-form-field"
                   placeholder="Enter client name"
                 />
               </div>
@@ -215,7 +215,7 @@ const Clients = () => {
                   type="text"
                   value={newClient.company}
                   onChange={(e) => setNewClient(prev => ({ ...prev, company: e.target.value }))}
-                  className="w-full px-3 py-3 sm:py-2 border border-border rounded-md text-sm"
+                  className="w-full px-4 py-3 sm:py-2 border border-border rounded-md text-base sm:text-sm mobile-form-field"
                   placeholder="Enter company name"
                 />
               </div>
@@ -225,7 +225,7 @@ const Clients = () => {
                   type="text"
                   value={newClient.phone}
                   onChange={(e) => setNewClient(prev => ({ ...prev, phone: e.target.value }))}
-                  className="w-full px-3 py-3 sm:py-2 border border-border rounded-md text-sm"
+                  className="w-full px-4 py-3 sm:py-2 border border-border rounded-md text-base sm:text-sm mobile-form-field"
                   placeholder="Enter phone number"
                 />
               </div>
@@ -235,7 +235,7 @@ const Clients = () => {
                   type="email"
                   value={newClient.email}
                   onChange={(e) => setNewClient(prev => ({ ...prev, email: e.target.value }))}
-                  className="w-full px-3 py-3 sm:py-2 border border-border rounded-md text-sm"
+                  className="w-full px-4 py-3 sm:py-2 border border-border rounded-md text-base sm:text-sm mobile-form-field"
                   placeholder="Enter email address"
                 />
               </div>
@@ -245,7 +245,7 @@ const Clients = () => {
               <textarea
                 value={newClient.looking_for}
                 onChange={(e) => setNewClient(prev => ({ ...prev, looking_for: e.target.value }))}
-                className="w-full px-3 py-3 sm:py-2 border border-border rounded-md text-sm resize-none"
+                className="w-full px-4 py-3 sm:py-2 border border-border rounded-md text-base sm:text-sm resize-none mobile-form-field"
                 rows={3}
                 placeholder="What is the client looking for?"
               />
@@ -254,7 +254,7 @@ const Clients = () => {
               <button
                 onClick={handleAddClient}
                 disabled={!newClient.name.trim() || !newClient.looking_for.trim()}
-                className="bg-primary text-primary-foreground px-6 py-3 sm:py-2 rounded-md text-sm hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-primary text-primary-foreground px-6 py-4 sm:py-2 rounded-md text-base sm:text-sm hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed mobile-button mobile-touch-target"
               >
                 Add Client
               </button>
@@ -270,7 +270,7 @@ const Clients = () => {
                     status: "New Lead"
                   });
                 }}
-                className="bg-muted text-muted-foreground px-6 py-3 sm:py-2 rounded-md text-sm hover:bg-muted/80"
+                className="bg-muted text-muted-foreground px-6 py-4 sm:py-2 rounded-md text-base sm:text-sm hover:bg-muted/80 mobile-button mobile-touch-target"
               >
                 Cancel
               </button>
@@ -282,14 +282,14 @@ const Clients = () => {
           <div className="p-4 border-b border-border bg-gradient-header">
             <button
               onClick={() => setShowAddClient(!showAddClient)}
-              className="bg-primary text-primary-foreground px-6 py-3 sm:px-4 sm:py-2 rounded-md text-sm hover:bg-primary/90 transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.98]"
+              className="bg-primary text-primary-foreground px-6 py-4 sm:px-4 sm:py-2 rounded-md text-base sm:text-sm hover:bg-primary/90 transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.98] mobile-button mobile-touch-target"
             >
               {showAddClient ? 'Cancel' : 'Add New Client'}
             </button>
           </div>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto mobile-table-container mobile-scroll-indicator">
             <table className="w-full min-w-[900px]">
-              <thead className="bg-gradient-header border-b border-border">
+              <thead className="bg-gradient-header border-b border-border mobile-table-header">
                 <tr>
                   <th className="text-left py-4 px-4 text-xs sm:text-sm font-semibold text-muted-foreground uppercase tracking-wider">Client</th>
                   <th className="text-left py-4 px-4 text-xs sm:text-sm font-semibold text-muted-foreground uppercase tracking-wider">Contact</th>
