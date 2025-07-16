@@ -174,7 +174,7 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
             <div className="text-sm text-muted-foreground">
               {property.type === 'lease' ? 'Lease Price:' : 'Sale Price:'}
             </div>
-            <div className="font-semibold text-foreground">{property.price}</div>
+            <div className="font-semibold text-foreground text-sm">{property.price}</div>
           </div>
         ) : (
           <span className="text-muted-foreground text-sm">-</span>
