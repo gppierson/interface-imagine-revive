@@ -278,28 +278,28 @@ const Clients = () => {
           </div>
         )}
 
-        <div className="bg-white rounded-lg shadow-sm border border-border overflow-hidden">
-          <div className="p-4 border-b border-border">
+        <div className="bg-card rounded-lg shadow-card border border-border overflow-hidden">
+          <div className="p-4 border-b border-border bg-gradient-header">
             <button
               onClick={() => setShowAddClient(!showAddClient)}
-              className="bg-primary text-primary-foreground px-6 py-3 sm:px-4 sm:py-2 rounded-md text-sm hover:bg-primary/90"
+              className="bg-primary text-primary-foreground px-6 py-3 sm:px-4 sm:py-2 rounded-md text-sm hover:bg-primary/90 transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.98]"
             >
               {showAddClient ? 'Cancel' : 'Add New Client'}
             </button>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full min-w-[900px]">
-              <thead className="bg-muted/50 border-b border-border">
+              <thead className="bg-gradient-header border-b border-border">
                 <tr>
-                  <th className="text-left py-3 px-4 text-xs sm:text-sm font-medium text-foreground">Client</th>
-                  <th className="text-left py-3 px-4 text-xs sm:text-sm font-medium text-foreground">Contact</th>
-                  <th className="text-left py-3 px-4 text-xs sm:text-sm font-medium text-foreground">Looking For</th>
-                  <th className="text-left py-3 px-4 text-xs sm:text-sm font-medium text-foreground">Status</th>
-                  <th className="text-left py-3 px-4 text-xs sm:text-sm font-medium text-foreground">Notes</th>
-                  <th className="text-left py-3 px-4 text-xs sm:text-sm font-medium text-foreground">Updated</th>
+                  <th className="text-left py-4 px-4 text-xs sm:text-sm font-semibold text-muted-foreground uppercase tracking-wider">Client</th>
+                  <th className="text-left py-4 px-4 text-xs sm:text-sm font-semibold text-muted-foreground uppercase tracking-wider">Contact</th>
+                  <th className="text-left py-4 px-4 text-xs sm:text-sm font-semibold text-muted-foreground uppercase tracking-wider">Looking For</th>
+                  <th className="text-left py-4 px-4 text-xs sm:text-sm font-semibold text-muted-foreground uppercase tracking-wider">Status</th>
+                  <th className="text-left py-4 px-4 text-xs sm:text-sm font-semibold text-muted-foreground uppercase tracking-wider">Notes</th>
+                  <th className="text-left py-4 px-4 text-xs sm:text-sm font-semibold text-muted-foreground uppercase tracking-wider">Updated</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-border">
                 {filteredAndSortedClients.length > 0 ? (
                   filteredAndSortedClients.map((client) => (
                     <ClientRow
@@ -311,8 +311,11 @@ const Clients = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={6} className="py-8 px-4 text-center text-muted-foreground">
-                      No clients found matching your filters.
+                    <td colSpan={6} className="py-12 px-4 text-center text-muted-foreground">
+                      <div className="animate-fade-in">
+                        <div className="text-lg font-medium mb-2">No clients found</div>
+                        <div className="text-sm">Try adjusting your filters or add a new client</div>
+                      </div>
                     </td>
                   </tr>
                 )}

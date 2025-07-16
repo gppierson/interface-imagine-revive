@@ -109,7 +109,7 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
   return (
     <>
       <tr 
-        className="border-b border-border/50 hover:bg-muted/30 transition-colors group cursor-pointer"
+        className="border-b border-border/50 hover:bg-muted/30 transition-all duration-200 group cursor-pointer table-row-hover"
         onClick={() => setIsExpanded(!isExpanded)}
       >
         {/* Expand/Collapse Icon */}
@@ -122,8 +122,8 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
         </td>
 
         {/* Property Type */}
-        <td className="py-3 px-4">
-          <Badge variant="outline" className={cn("text-xs font-medium", typeConfig[property.type].color)}>
+        <td className="py-4 px-4">
+          <Badge variant="outline" className={cn("text-xs font-medium shadow-sm", typeConfig[property.type].color)}>
             {typeConfig[property.type].label}
           </Badge>
         </td>
@@ -231,9 +231,9 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
 
     {/* Expanded Content */}
     {isExpanded && (
-      <tr className="bg-muted/20">
+      <tr className="bg-gradient-card border-b border-border animate-slide-down">
         <td colSpan={8} className="p-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in">
             {/* Notes Section - Takes 2/3 of the space */}
             <div className="lg:col-span-2">
               <h4 className="font-medium text-sm mb-3">Notes</h4>
@@ -262,19 +262,22 @@ export function PropertyRow({ property, onUpdate }: PropertyRowProps) {
               </div>
 
               {/* Existing notes */}
-              <div className="space-y-2 max-h-60 overflow-y-auto">
+              <div className="space-y-3 max-h-60 overflow-y-auto">
                 {property.notes.length > 0 ? (
                   property.notes.map((note, index) => (
-                    <div key={note.id} className="bg-background p-3 rounded-lg border">
-                      <div className="text-sm text-foreground mb-1">{note.content}</div>
-                      <div className="text-xs text-muted-foreground">
-                        {new Date(note.date).toLocaleDateString('en-US')}
-                        {note.author && <span> • {note.author}</span>}
+                    <div key={note.id} className="bg-background p-4 rounded-lg border shadow-sm hover:shadow-md transition-all duration-200 animate-slide-up" style={{ animationDelay: `${index * 50}ms` }}>
+                      <div className="text-sm text-foreground mb-2 leading-relaxed">{note.content}</div>
+                      <div className="text-xs text-muted-foreground flex items-center gap-2">
+                        <span className="status-dot">{new Date(note.date).toLocaleDateString('en-US')}</span>
+                        {note.author && <span>• {note.author}</span>}
                       </div>
                     </div>
                   ))
                 ) : (
-                  <div className="text-sm text-muted-foreground">No notes yet. Add one above!</div>
+                  <div className="text-sm text-muted-foreground text-center py-8 animate-fade-in">
+                    <div className="mb-2">📝</div>
+                    <div>No notes yet. Add one above!</div>
+                  </div>
                 )}
               </div>
             </div>

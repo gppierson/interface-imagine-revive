@@ -236,39 +236,39 @@ const Index = () => {
             </div>
           </div>
         ) : (
-          <div className="bg-card border border-border rounded-lg overflow-hidden">
+          <div className="bg-card border border-border rounded-lg overflow-hidden shadow-card">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[800px]">
-                <thead className="bg-muted/30 border-b border-border">
+                <thead className="bg-gradient-header border-b border-border">
                   <tr>
-                    <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider w-8">
+                    <th className="text-left py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider w-8">
                       
                     </th>
-                    <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    <th className="text-left py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                       Type
                     </th>
-                    <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    <th className="text-left py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                       Property
                     </th>
-                    <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    <th className="text-left py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                       Price
                     </th>
-                    <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    <th className="text-left py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                       Square Feet
                     </th>
-                    <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    <th className="text-left py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                       Lot Size
                     </th>
-                    <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    <th className="text-left py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                       Status
                     </th>
-                    <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    <th className="text-left py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                       Listed Date
                     </th>
                   </tr>
                 </thead>
-                <tbody>
-                  {filteredAndSortedProperties.map((property) => (
+                <tbody className="divide-y divide-border">
+                  {filteredAndSortedProperties.map((property, index) => (
                     <PropertyRow
                       key={property.id}
                       property={property}

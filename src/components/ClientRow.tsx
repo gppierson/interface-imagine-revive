@@ -54,7 +54,7 @@ export const ClientRow = ({ client, onUpdateClient, onAddNote }: ClientRowProps)
   };
 
   return (
-    <tr className="border-b border-border hover:bg-muted/25 transition-colors">
+    <tr className="border-b border-border hover:bg-muted/25 transition-all duration-200 table-row-hover">
       {/* Client Info */}
       <td className="py-3 px-4 min-w-0">
         <div className="space-y-1">
@@ -118,7 +118,7 @@ export const ClientRow = ({ client, onUpdateClient, onAddNote }: ClientRowProps)
         ) : (
           <Badge
             variant={statusConfig[client.status].variant}
-            className={cn("cursor-pointer text-xs", statusConfig[client.status].className)}
+            className={cn("cursor-pointer text-xs shadow-sm hover:shadow-md transition-all duration-200", statusConfig[client.status].className)}
             onClick={() => setIsEditingStatus(true)}
           >
             {client.status}
@@ -131,15 +131,15 @@ export const ClientRow = ({ client, onUpdateClient, onAddNote }: ClientRowProps)
         <div className="space-y-2 max-w-sm">
           {client.notes.length > 0 ? (
             client.notes.slice(0, 2).map((note) => (
-              <div key={note.id} className="bg-background p-3 rounded-lg border">
-                <div className="text-sm text-foreground mb-1">{note.note_text}</div>
-                <div className="text-xs text-muted-foreground">
-                  {formatDate(note.created_at)}
+              <div key={note.id} className="bg-background p-4 rounded-lg border shadow-sm hover:shadow-md transition-all duration-200">
+                <div className="text-sm text-foreground mb-2 leading-relaxed">{note.note_text}</div>
+                <div className="text-xs text-muted-foreground flex items-center gap-2">
+                  <span className="status-dot">{formatDate(note.created_at)}</span>
                 </div>
               </div>
             ))
           ) : (
-            <div className="text-sm text-muted-foreground">No notes yet.</div>
+            <div className="text-sm text-muted-foreground text-center py-8 animate-fade-in">📝 No notes yet.</div>
           )}
           
           {client.notes.length > 2 && (
@@ -163,7 +163,7 @@ export const ClientRow = ({ client, onUpdateClient, onAddNote }: ClientRowProps)
                 size="sm" 
                 onClick={handleAddNote}
                 disabled={!newNoteText.trim()}
-                className="text-xs"
+                className="text-xs shadow-sm hover:shadow-md transition-all duration-200"
               >
                 Add Note
               </Button>
@@ -173,9 +173,9 @@ export const ClientRow = ({ client, onUpdateClient, onAddNote }: ClientRowProps)
               variant="outline"
               size="sm"
               onClick={() => setShowAddNote(true)}
-              className="h-6 w-6 p-0"
+              className="h-8 w-8 p-0 shadow-sm hover:shadow-md transition-all duration-200"
             >
-              <Plus className="w-3 h-3" />
+              <Plus className="w-4 h-4" />
             </Button>
           )}
         </div>
