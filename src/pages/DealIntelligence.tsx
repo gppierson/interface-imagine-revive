@@ -117,7 +117,7 @@ export default function DealIntelligence() {
         counts={{ sale: 0, lease: 0, business: 0, total: 0 }}
       />
 
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Bot className="w-8 h-8 text-teal-600" />
@@ -129,12 +129,12 @@ export default function DealIntelligence() {
         </div>
 
         {!uploadedFile && (
-          <Card className="mb-8">
-            <CardContent className="p-8">
+          <div className="bg-card border border-border rounded-lg overflow-hidden shadow-card mb-6">
+            <div className="p-8">
               <div
                 className={cn(
                   "border-2 border-dashed rounded-lg p-12 text-center transition-colors",
-                  isDragOver ? "border-teal-500 bg-teal-50" : "border-muted-foreground/25"
+                  isDragOver ? "border-teal-500 bg-teal-50" : "border-border"
                 )}
                 onDrop={handleDrop}
                 onDragOver={(e) => {
@@ -144,7 +144,7 @@ export default function DealIntelligence() {
                 onDragLeave={() => setIsDragOver(false)}
               >
                 <Upload className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-                <h3 className="text-xl font-semibold mb-2">Upload Real Estate Contract</h3>
+                <h3 className="text-xl font-semibold mb-2 text-foreground">Upload Real Estate Contract</h3>
                 <p className="text-muted-foreground mb-4">
                   Drag and drop your PDF contract here, or click to browse
                 </p>
@@ -166,32 +166,34 @@ export default function DealIntelligence() {
                   }}
                 />
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         )}
 
         {isAnalyzing && (
-          <Card className="mb-8">
-            <CardContent className="p-8 text-center">
+          <div className="bg-card border border-border rounded-lg overflow-hidden shadow-card mb-6">
+            <div className="p-8 text-center">
               <div className="flex items-center justify-center gap-3 mb-4">
                 <div className="animate-spin w-6 h-6 border-2 border-teal-600 border-t-transparent rounded-full" />
-                <span className="text-lg font-medium">Analyzing contract...</span>
+                <span className="text-lg font-medium text-foreground">Analyzing contract...</span>
               </div>
               <p className="text-muted-foreground">
                 AI is reviewing your contract and extracting key terms
               </p>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         )}
 
         {showSummary && (
-          <Card className="mb-8">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="flex items-center gap-2">
+          <div className="bg-card border border-border rounded-lg overflow-hidden shadow-card">
+            <div className="bg-gradient-header border-b border-border">
+              <div className="flex items-center justify-between p-6">
+                <div className="flex items-center gap-2">
                   <FileText className="w-5 h-5 text-teal-600" />
-                  OFFER INTELLIGENCE - {mockSummary.property}
-                </CardTitle>
+                  <h2 className="text-xl font-semibold text-foreground">
+                    OFFER INTELLIGENCE - {mockSummary.property}
+                  </h2>
+                </div>
                 <div className="flex items-center gap-2">
                   <Button variant="outline" size="sm">
                     <Save className="w-4 h-4 mr-1" />
@@ -214,65 +216,63 @@ export default function DealIntelligence() {
                   </Collapsible>
                 </div>
               </div>
-            </CardHeader>
+            </div>
             
             <Collapsible open={!summaryCollapsed} onOpenChange={(open) => setSummaryCollapsed(!open)}>
               <CollapsibleContent>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div className="space-y-3">
-                      <div>
-                        <span className="font-semibold text-sm text-muted-foreground">Purchase Price</span>
-                        <p className="text-lg font-bold text-green-600">{mockSummary.purchasePrice}</p>
+                <div className="p-6 border-b border-border/50">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <div className="bg-background p-4 rounded-lg border shadow-sm">
+                        <span className="font-semibold text-sm text-muted-foreground block mb-1">Purchase Price</span>
+                        <p className="text-lg font-bold text-success">{mockSummary.purchasePrice}</p>
                       </div>
-                      <div>
-                        <span className="font-semibold text-sm text-muted-foreground">Earnest Money</span>
-                        <p className="font-medium">{mockSummary.earnestMoney}</p>
+                      <div className="bg-background p-4 rounded-lg border shadow-sm">
+                        <span className="font-semibold text-sm text-muted-foreground block mb-1">Earnest Money</span>
+                        <p className="font-medium text-foreground">{mockSummary.earnestMoney}</p>
                       </div>
-                      <div>
-                        <span className="font-semibold text-sm text-muted-foreground">Closing Date</span>
-                        <p className="font-medium">{mockSummary.closingDate}</p>
+                      <div className="bg-background p-4 rounded-lg border shadow-sm">
+                        <span className="font-semibold text-sm text-muted-foreground block mb-1">Closing Date</span>
+                        <p className="font-medium text-foreground">{mockSummary.closingDate}</p>
                       </div>
-                      <div>
-                        <span className="font-semibold text-sm text-muted-foreground">Financing</span>
-                        <p className="font-medium">{mockSummary.financing}</p>
+                      <div className="bg-background p-4 rounded-lg border shadow-sm">
+                        <span className="font-semibold text-sm text-muted-foreground block mb-1">Financing</span>
+                        <p className="font-medium text-foreground">{mockSummary.financing}</p>
                       </div>
                     </div>
-                    <div className="space-y-3">
-                      <div>
-                        <span className="font-semibold text-sm text-muted-foreground">Inspection Period</span>
-                        <p className="font-medium">{mockSummary.inspectionPeriod}</p>
+                    <div className="space-y-4">
+                      <div className="bg-background p-4 rounded-lg border shadow-sm">
+                        <span className="font-semibold text-sm text-muted-foreground block mb-1">Inspection Period</span>
+                        <p className="font-medium text-foreground">{mockSummary.inspectionPeriod}</p>
                       </div>
-                      <div>
-                        <span className="font-semibold text-sm text-muted-foreground">Appraisal Contingency</span>
-                        <p className="font-medium">{mockSummary.appraisalContingency}</p>
+                      <div className="bg-background p-4 rounded-lg border shadow-sm">
+                        <span className="font-semibold text-sm text-muted-foreground block mb-1">Appraisal Contingency</span>
+                        <p className="font-medium text-foreground">{mockSummary.appraisalContingency}</p>
                       </div>
-                      <div>
-                        <span className="font-semibold text-sm text-muted-foreground">Seller Rent-Back</span>
-                        <p className="font-medium">{mockSummary.sellerRentBack}</p>
+                      <div className="bg-background p-4 rounded-lg border shadow-sm">
+                        <span className="font-semibold text-sm text-muted-foreground block mb-1">Seller Rent-Back</span>
+                        <p className="font-medium text-foreground">{mockSummary.sellerRentBack}</p>
                       </div>
                     </div>
                   </div>
-                </CardContent>
+                </div>
               </CollapsibleContent>
             </Collapsible>
 
-            <CardContent className="pt-0">
-              <Separator className="mb-6" />
-              
+            <div className="p-6">
               {/* Suggested Questions */}
               <div className="mb-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <Lightbulb className="w-4 h-4 text-yellow-500" />
-                  <h3 className="font-semibold text-sm">SUGGESTED QUESTIONS</h3>
+                <div className="flex items-center gap-2 mb-4">
+                  <Lightbulb className="w-4 h-4 text-warning" />
+                  <h3 className="font-semibold text-sm text-foreground uppercase tracking-wider">SUGGESTED QUESTIONS</h3>
                 </div>
-                <div className="space-y-2">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
                   {suggestedQuestions.map((question, index) => (
                     <Button
                       key={index}
                       variant="outline"
                       size="sm"
-                      className="w-full justify-start text-left h-auto py-2 px-3"
+                      className="justify-start text-left h-auto py-3 px-4 hover:bg-muted/30 transition-all duration-200"
                       onClick={() => handleSuggestedQuestion(question)}
                     >
                       <span className="text-xs">• {question}</span>
@@ -281,17 +281,19 @@ export default function DealIntelligence() {
                 </div>
               </div>
 
+              <Separator className="mb-6" />
+
               {/* Chat Interface */}
               <div className="mb-6">
-                <h3 className="font-semibold mb-3">CONVERSATION</h3>
-                <div className="border rounded-lg p-4 min-h-[300px] max-h-[400px] overflow-y-auto bg-muted/20">
+                <h3 className="font-semibold text-sm text-foreground uppercase tracking-wider mb-4">CONVERSATION</h3>
+                <div className="border border-border rounded-lg min-h-[300px] max-h-[400px] overflow-y-auto bg-background">
                   {chatMessages.length === 0 ? (
-                    <div className="text-center text-muted-foreground py-8">
+                    <div className="text-center text-muted-foreground py-12">
                       <Bot className="w-8 h-8 mx-auto mb-2 text-teal-600" />
                       <p>Start a conversation about your contract analysis</p>
                     </div>
                   ) : (
-                    <div className="space-y-4">
+                    <div className="p-4 space-y-4">
                       {chatMessages.map((message) => (
                         <div key={message.id} className={cn("flex gap-3", message.type === 'user' ? "justify-end" : "justify-start")}>
                           <div className={cn("flex gap-2 max-w-[80%]", message.type === 'user' ? "flex-row-reverse" : "flex-row")}>
@@ -299,8 +301,10 @@ export default function DealIntelligence() {
                               message.type === 'user' ? "bg-crest-red" : "bg-teal-600")}>
                               {message.type === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
                             </div>
-                            <div className={cn("p-3 rounded-lg", 
-                              message.type === 'user' ? "bg-crest-red text-white" : "bg-white border")}>
+                            <div className={cn("p-3 rounded-lg shadow-sm", 
+                              message.type === 'user' 
+                                ? "bg-crest-red text-white" 
+                                : "bg-card border border-border")}>
                               <p className="text-sm">{message.content}</p>
                             </div>
                           </div>
@@ -312,10 +316,10 @@ export default function DealIntelligence() {
               </div>
 
               {/* AI Disclaimer */}
-              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+              <div className="bg-warning/10 border border-warning/20 rounded-lg p-4 mb-4">
                 <div className="flex items-start gap-2">
-                  <AlertTriangle className="w-4 h-4 text-yellow-600 mt-0.5" />
-                  <div className="text-sm">
+                  <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
+                  <div className="text-sm text-foreground">
                     <strong>AI Assistant Notice:</strong> This guidance is based on AI analysis and should not replace professional advice. Always consult with your broker or attorney for critical decisions.
                   </div>
                 </div>
@@ -341,8 +345,8 @@ export default function DealIntelligence() {
                   <Mic className="w-4 h-4" />
                 </Button>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         )}
       </div>
     </div>
