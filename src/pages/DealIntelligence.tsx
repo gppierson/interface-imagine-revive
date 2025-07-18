@@ -14,11 +14,9 @@ import {
   ChevronDown, 
   ChevronUp, 
   AlertTriangle,
-  Lightbulb,
   Download,
   Share,
   Save,
-  Bot,
   User
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -119,10 +117,7 @@ export default function DealIntelligence() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
         <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Bot className="w-8 h-8 text-teal-600" />
-            <h1 className="text-3xl font-bold text-foreground">Offer Intelligence</h1>
-          </div>
+          <h1 className="text-3xl font-bold text-foreground mb-4">Offer Intelligence</h1>
           <p className="text-muted-foreground text-lg">
             AI-Powered Real Estate Contract Analysis & Chat Assistant
           </p>
@@ -143,7 +138,6 @@ export default function DealIntelligence() {
                 }}
                 onDragLeave={() => setIsDragOver(false)}
               >
-                <Upload className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
                 <h3 className="text-xl font-semibold mb-2 text-foreground">Upload Real Estate Contract</h3>
                 <p className="text-muted-foreground mb-4">
                   Drag and drop your PDF contract here, or click to browse
@@ -152,7 +146,6 @@ export default function DealIntelligence() {
                   onClick={() => document.getElementById('file-input')?.click()}
                   className="bg-teal-600 hover:bg-teal-700"
                 >
-                  <FileText className="w-4 h-4 mr-2" />
                   Choose File
                 </Button>
                 <input
@@ -189,22 +182,18 @@ export default function DealIntelligence() {
             <div className="bg-gradient-header border-b border-border">
               <div className="flex items-center justify-between p-6">
                 <div className="flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-teal-600" />
                   <h2 className="text-xl font-semibold text-foreground">
                     OFFER INTELLIGENCE - {mockSummary.property}
                   </h2>
                 </div>
                 <div className="flex items-center gap-2">
                   <Button variant="outline" size="sm">
-                    <Save className="w-4 h-4 mr-1" />
                     Save
                   </Button>
                   <Button variant="outline" size="sm">
-                    <Download className="w-4 h-4 mr-1" />
                     Export
                   </Button>
                   <Button variant="outline" size="sm">
-                    <Share className="w-4 h-4 mr-1" />
                     Share
                   </Button>
                   <Collapsible open={!summaryCollapsed} onOpenChange={(open) => setSummaryCollapsed(!open)}>
@@ -262,10 +251,7 @@ export default function DealIntelligence() {
             <div className="p-6">
               {/* Suggested Questions */}
               <div className="mb-6">
-                <div className="flex items-center gap-2 mb-4">
-                  <Lightbulb className="w-4 h-4 text-warning" />
-                  <h3 className="font-semibold text-sm text-foreground uppercase tracking-wider">SUGGESTED QUESTIONS</h3>
-                </div>
+                <h3 className="font-semibold text-sm text-foreground uppercase tracking-wider mb-4">SUGGESTED QUESTIONS</h3>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
                   {suggestedQuestions.map((question, index) => (
                     <Button
@@ -289,7 +275,6 @@ export default function DealIntelligence() {
                 <div className="border border-border rounded-lg min-h-[300px] max-h-[400px] overflow-y-auto bg-background">
                   {chatMessages.length === 0 ? (
                     <div className="text-center text-muted-foreground py-12">
-                      <Bot className="w-8 h-8 mx-auto mb-2 text-teal-600" />
                       <p>Start a conversation about your contract analysis</p>
                     </div>
                   ) : (
@@ -297,10 +282,6 @@ export default function DealIntelligence() {
                       {chatMessages.map((message) => (
                         <div key={message.id} className={cn("flex gap-3", message.type === 'user' ? "justify-end" : "justify-start")}>
                           <div className={cn("flex gap-2 max-w-[80%]", message.type === 'user' ? "flex-row-reverse" : "flex-row")}>
-                            <div className={cn("w-8 h-8 rounded-full flex items-center justify-center text-white text-sm", 
-                              message.type === 'user' ? "bg-crest-red" : "bg-teal-600")}>
-                              {message.type === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
-                            </div>
                             <div className={cn("p-3 rounded-lg shadow-sm", 
                               message.type === 'user' 
                                 ? "bg-crest-red text-white" 
@@ -317,11 +298,8 @@ export default function DealIntelligence() {
 
               {/* AI Disclaimer */}
               <div className="bg-warning/10 border border-warning/20 rounded-lg p-4 mb-4">
-                <div className="flex items-start gap-2">
-                  <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
-                  <div className="text-sm text-foreground">
-                    <strong>AI Assistant Notice:</strong> This guidance is based on AI analysis and should not replace professional advice. Always consult with your broker or attorney for critical decisions.
-                  </div>
+                <div className="text-sm text-foreground">
+                  <strong>AI Assistant Notice:</strong> This guidance is based on AI analysis and should not replace professional advice. Always consult with your broker or attorney for critical decisions.
                 </div>
               </div>
 
@@ -339,10 +317,10 @@ export default function DealIntelligence() {
                   className="bg-teal-600 hover:bg-teal-700"
                   disabled={!currentMessage.trim()}
                 >
-                  <Send className="w-4 h-4" />
+                  Send
                 </Button>
-                <Button variant="outline" size="icon">
-                  <Mic className="w-4 h-4" />
+                <Button variant="outline">
+                  Voice
                 </Button>
               </div>
             </div>
