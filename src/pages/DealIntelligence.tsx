@@ -121,7 +121,7 @@ export default function DealIntelligence() {
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Bot className="w-8 h-8 text-teal-600" />
-            <h1 className="text-3xl font-bold text-foreground">Deal Intelligence</h1>
+            <h1 className="text-3xl font-bold text-foreground">Offer Intelligence</h1>
           </div>
           <p className="text-muted-foreground text-lg">
             AI-Powered Real Estate Contract Analysis & Chat Assistant

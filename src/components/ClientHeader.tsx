@@ -73,7 +73,7 @@ export function ClientHeader({
                 className="h-8 px-4 text-xs font-semibold bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-200"
               >
                 <span className="mr-1">🤖</span>
-                Deal Intelligence
+                Offer Intelligence
               </Button>
             </div>
           </div>
