@@ -385,8 +385,7 @@ export default function Commissions() {
           <CardContent className="p-0">
             <div className="bg-gray-50 border-b">
               {/* Table Header */}
-              <div className="grid grid-cols-12 gap-4 py-3 px-6 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                <div className="col-span-1">TYPE</div>
+              <div className="grid grid-cols-11 gap-4 py-3 px-6 text-xs font-medium text-gray-500 uppercase tracking-wider">
                 <div className="col-span-3">PROPERTY</div>
                 <div className="col-span-1 text-right">3% RATE</div>
                 <div className="col-span-1 text-right">6% RATE</div>
@@ -403,26 +402,25 @@ export default function Commissions() {
                 <div 
                   key={commission.id} 
                   className={cn(
-                    "grid grid-cols-12 gap-4 py-4 px-6 hover:bg-gray-50/50 transition-colors",
+                    "grid grid-cols-11 gap-4 py-4 px-6 hover:bg-gray-50/50 transition-colors",
                     index % 2 === 0 ? "bg-white" : "bg-gray-50/30"
                   )}
                 >
-                  {/* Type Badge */}
-                  <div className="col-span-1 flex items-center">
-                    <ChevronRight className="w-3 h-3 text-gray-300 mr-2" />
-                    {getCommissionTypeBadge(commission.property)}
-                  </div>
-                  
                   {/* Property Info */}
                   <div className="col-span-3">
-                    <div className="font-medium text-sm text-gray-900 mb-1">
-                      {commission.property}
-                    </div>
-                    <div className="text-xs text-gray-500">
-                      <span className="text-gray-400">Add nickname...</span>
-                    </div>
-                    <div className="text-xs text-gray-500 mt-1">
-                      Listing Price: <span className="font-medium text-gray-700">${commission.listingPrice.toLocaleString()}</span>
+                    <div className="flex items-center">
+                      <ChevronRight className="w-3 h-3 text-gray-300 mr-2" />
+                      <div>
+                        <div className="font-medium text-sm text-gray-900 mb-1">
+                          {commission.property}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          <span className="text-gray-400">Add nickname...</span>
+                        </div>
+                        <div className="text-xs text-gray-500 mt-1">
+                          Listing Price: <span className="font-medium text-gray-700">${commission.listingPrice.toLocaleString()}</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                    
@@ -507,8 +505,8 @@ export default function Commissions() {
             
             {/* Totals Footer */}
             <div className="border-t-2 border-gray-200 bg-gray-50">
-              <div className="grid grid-cols-12 gap-4 py-4 px-6">
-                <div className="col-span-4">
+              <div className="grid grid-cols-11 gap-4 py-4 px-6">
+                <div className="col-span-3">
                   <span className="text-base font-semibold text-gray-900">Totals</span>
                 </div>
                 <div className="col-span-1 text-right">
