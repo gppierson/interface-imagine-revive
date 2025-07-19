@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Search, Filter, SortAsc, Building2 } from "lucide-react";
+import { Search, Filter, SortAsc, Building2, Users, DollarSign } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import crestLogo from "@/assets/crest-realty-logo.svg";
@@ -69,10 +69,21 @@ export function CompactHeader({
                 onClick={() => navigate("/clients")}
                 className="h-8 px-4 text-xs font-semibold border-2 border-muted-foreground/20 hover:border-crest-red hover:text-crest-red hover:bg-crest-red/5 transition-all duration-200 shadow-sm hover:shadow-md"
               >
+                <Users className="w-3 h-3 mr-1" />
                 <span className="text-muted-foreground group-hover:text-crest-red">Clients</span>
                 <Badge variant="outline" className="ml-1 h-4 px-1.5 text-xs border-muted-foreground/30 text-muted-foreground">
                   0
                 </Badge>
+              </Button>
+
+              <Button 
+                variant="outline"
+                size="sm"
+                onClick={() => navigate("/commissions")}
+                className="h-8 px-4 text-xs font-semibold border-2 border-muted-foreground/20 hover:border-crest-red hover:text-crest-red hover:bg-crest-red/5 transition-all duration-200 shadow-sm hover:shadow-md"
+              >
+                <DollarSign className="w-3 h-3 mr-1" />
+                <span className="text-muted-foreground group-hover:text-crest-red">Commissions</span>
               </Button>
 
               <Button 
@@ -82,15 +93,6 @@ export function CompactHeader({
                 className="h-8 px-4 text-xs font-semibold bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-200"
               >
                 Offer Intelligence
-              </Button>
-
-              <Button 
-                variant="default"
-                size="sm"
-                onClick={() => navigate("/commissions")}
-                className="h-8 px-4 text-xs font-semibold bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-200"
-              >
-                Commissions
               </Button>
             </div>
           </div>
