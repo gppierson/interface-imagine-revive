@@ -179,12 +179,37 @@ export default function Commissions() {
     setCommissions(prev => prev.filter(c => c.id !== id));
   };
 
-  const getCommissionStatusBadge = (commissionStatus: string) => {
+  const toggleCommissionStatus = (id: string) => {
+    setCommissions(prev => prev.map(commission => 
+      commission.id === id 
+        ? { ...commission, commissionStatus: commission.commissionStatus === "paid" ? "not-paid" : "paid" }
+        : commission
+    ));
+  };
+
+  const getCommissionStatusBadge = (commissionStatus: string, commissionId: string) => {
+    const baseClasses = "text-xs px-2 py-0.5 cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-sm";
+    
     switch (commissionStatus) {
       case "paid":
-        return <Badge className="bg-emerald-500 hover:bg-emerald-600 text-white border-0 text-xs px-2 py-0.5">Paid</Badge>;
+        return (
+          <Badge 
+            className={`bg-emerald-500 hover:bg-emerald-600 text-white border-0 ${baseClasses}`}
+            onClick={() => toggleCommissionStatus(commissionId)}
+          >
+            Paid
+          </Badge>
+        );
       default:
-        return <Badge variant="outline" className="text-gray-600 border-gray-300 text-xs px-2 py-0.5">Not Paid</Badge>;
+        return (
+          <Badge 
+            variant="outline" 
+            className={`text-gray-600 border-gray-300 hover:border-emerald-500 hover:text-emerald-600 ${baseClasses}`}
+            onClick={() => toggleCommissionStatus(commissionId)}
+          >
+            Not Paid
+          </Badge>
+        );
     }
   };
 
@@ -473,7 +498,7 @@ export default function Commissions() {
                   
                   {/* Commission Status */}
                   <div className="col-span-1">
-                    {getCommissionStatusBadge(commission.commissionStatus)}
+                    {getCommissionStatusBadge(commission.commissionStatus, commission.id)}
                   </div>
                   
                   {/* Actions */}
