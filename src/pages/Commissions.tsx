@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Building2, DollarSign, TrendingUp, Calendar, Users, Search, Filter } from "lucide-react";
+import { Building2, DollarSign, TrendingUp, Calendar, Users, Search, Filter, Edit, Trash2 } from "lucide-react";
 import { AddCommissionModal } from "@/components/AddCommissionModal";
 import crestLogo from "@/assets/crest-realty-logo.svg";
 
@@ -15,7 +15,7 @@ interface Commission {
   rate3: number;
   rate6: number;
   likely: number;
-  estimatedClosing: string;
+  estimatedClosing: Date;
   listingStatus: "listed" | "pending" | "sold" | "withdrawn";
   commissionStatus: "not-paid" | "paid";
   client: string;
@@ -29,7 +29,7 @@ const mockCommissions: Commission[] = [
     rate3: 11597.85,
     rate6: 11597.85,
     likely: 11597.85,
-    estimatedClosing: "Q2 2025",
+    estimatedClosing: new Date(2025, 5, 15), // June 15, 2025
     listingStatus: "listed",
     commissionStatus: "not-paid",
     client: "Tefco Corp",
@@ -41,7 +41,7 @@ const mockCommissions: Commission[] = [
     rate3: 2970.00,
     rate6: 2970.00,
     likely: 2970.00,
-    estimatedClosing: "Q2 2025",
+    estimatedClosing: new Date(2025, 5, 30), // June 30, 2025
     listingStatus: "listed",
     commissionStatus: "not-paid",
     client: "Tefco Corp",
@@ -53,7 +53,7 @@ const mockCommissions: Commission[] = [
     rate3: 12128.74,
     rate6: 12128.74,
     likely: 12128.74,
-    estimatedClosing: "Q3 2025",
+    estimatedClosing: new Date(2025, 8, 10), // September 10, 2025
     listingStatus: "pending",
     commissionStatus: "not-paid",
     client: "Frito Lay Inc",
@@ -65,7 +65,7 @@ const mockCommissions: Commission[] = [
     rate3: 13921.88,
     rate6: 27843.75,
     likely: 13921.88,
-    estimatedClosing: "Q3 2025",
+    estimatedClosing: new Date(2025, 7, 25), // August 25, 2025
     listingStatus: "pending",
     commissionStatus: "not-paid",
     client: "Key Bank Corp",
@@ -77,7 +77,7 @@ const mockCommissions: Commission[] = [
     rate3: 9281.25,
     rate6: 12375.00,
     likely: 12375.00,
-    estimatedClosing: "July 2025",
+    estimatedClosing: new Date(2025, 6, 20), // July 20, 2025
     listingStatus: "listed",
     commissionStatus: "not-paid",
     client: "Cornerstone Dev",
@@ -89,7 +89,7 @@ const mockCommissions: Commission[] = [
     rate3: 5197.50,
     rate6: 10395.00,
     likely: 3712.50,
-    estimatedClosing: "Q4 2025",
+    estimatedClosing: new Date(2025, 11, 5), // December 5, 2025
     listingStatus: "pending",
     commissionStatus: "not-paid",
     client: "Gray Cliff LLC",
@@ -101,7 +101,7 @@ const mockCommissions: Commission[] = [
     rate3: 4455.00,
     rate6: 8910.00,
     likely: 4455.00,
-    estimatedClosing: "Q4 2025",
+    estimatedClosing: new Date(2025, 10, 15), // November 15, 2025
     listingStatus: "pending",
     commissionStatus: "not-paid",
     client: "Collision Craft",
@@ -113,7 +113,7 @@ const mockCommissions: Commission[] = [
     rate3: 13921.88,
     rate6: 27843.75,
     likely: 13921.88,
-    estimatedClosing: "Q1 2026",
+    estimatedClosing: new Date(2026, 2, 10), // March 10, 2026
     listingStatus: "pending",
     commissionStatus: "not-paid",
     client: "Hearth & Home",
@@ -125,7 +125,7 @@ const mockCommissions: Commission[] = [
     rate3: 6682.50,
     rate6: 13365.00,
     likely: 6682.50,
-    estimatedClosing: "Q1 2026",
+    estimatedClosing: new Date(2026, 1, 28), // February 28, 2026
     listingStatus: "pending",
     commissionStatus: "not-paid",
     client: "Quincy Investments",
@@ -161,9 +161,21 @@ export default function Commissions() {
   const handleAddCommission = (newCommission: Omit<Commission, 'id'>) => {
     const commission: Commission = {
       ...newCommission,
-      id: Date.now().toString()
+      id: Date.now().toString(),
+      estimatedClosing: typeof newCommission.estimatedClosing === 'string' 
+        ? new Date() 
+        : newCommission.estimatedClosing
     };
     setCommissions(prev => [...prev, commission]);
+  };
+
+  const handleEditCommission = (id: string) => {
+    console.log("Edit commission:", id);
+    // TODO: Implement edit functionality
+  };
+
+  const handleDeleteCommission = (id: string) => {
+    setCommissions(prev => prev.filter(c => c.id !== id));
   };
 
   const getCommissionStatusBadge = (commissionStatus: string) => {
@@ -362,13 +374,13 @@ export default function Commissions() {
                 <thead>
                   <tr className="border-b border-border">
                     <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">Property</th>
-                    <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">Client</th>
                     <th className="text-right py-3 px-2 text-sm font-medium text-muted-foreground">3% Rate</th>
                     <th className="text-right py-3 px-2 text-sm font-medium text-muted-foreground">6% Rate</th>
                     <th className="text-right py-3 px-2 text-sm font-medium text-muted-foreground">Likely</th>
                     <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">Est. Closing</th>
                     <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">Listing Status</th>
                     <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">Commission Status</th>
+                    <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -380,7 +392,6 @@ export default function Commissions() {
                           ${commission.listingPrice.toLocaleString()}
                         </div>
                       </td>
-                      <td className="py-3 px-2 text-sm text-muted-foreground">{commission.client}</td>
                       <td className="py-3 px-2 text-right text-sm font-medium">
                         ${commission.rate3.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                       </td>
@@ -390,16 +401,41 @@ export default function Commissions() {
                       <td className="py-3 px-2 text-right text-sm font-bold text-emerald-600">
                         ${commission.likely.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                       </td>
-                      <td className="py-3 px-2 text-sm text-muted-foreground">{commission.estimatedClosing}</td>
+                      <td className="py-3 px-2 text-sm text-muted-foreground">
+                        {commission.estimatedClosing.toLocaleDateString('en-US', { 
+                          year: 'numeric', 
+                          month: 'short', 
+                          day: 'numeric' 
+                        })}
+                      </td>
                       <td className="py-3 px-2">{getListingStatusBadge(commission.listingStatus)}</td>
                       <td className="py-3 px-2">{getCommissionStatusBadge(commission.commissionStatus)}</td>
+                      <td className="py-3 px-2">
+                        <div className="flex items-center gap-1">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleEditCommission(commission.id)}
+                            className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground"
+                          >
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleDeleteCommission(commission.id)}
+                            className="h-8 w-8 p-0 text-muted-foreground hover:text-destructive"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
                 <tfoot>
                   <tr className="border-t-2 border-border bg-muted/10">
                     <td className="py-3 px-2 font-semibold text-sm">Totals</td>
-                    <td className="py-3 px-2"></td>
                     <td className="py-3 px-2 text-right font-bold text-sm">
                       ${totals.rate3.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
@@ -409,6 +445,7 @@ export default function Commissions() {
                     <td className="py-3 px-2 text-right font-bold text-sm text-emerald-600">
                       ${totals.likely.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
+                    <td className="py-3 px-2"></td>
                     <td className="py-3 px-2"></td>
                     <td className="py-3 px-2"></td>
                     <td className="py-3 px-2"></td>

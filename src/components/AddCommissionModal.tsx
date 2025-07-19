@@ -35,7 +35,7 @@ interface Commission {
   rate3: number;
   rate6: number;
   likely: number;
-  estimatedClosing: string;
+  estimatedClosing: Date;
   listingStatus: "listed" | "pending" | "sold" | "withdrawn";
   commissionStatus: "not-paid" | "paid";
   client: string;
@@ -149,7 +149,7 @@ export function AddCommissionModal({ onAddCommission }: AddCommissionModalProps)
       rate3,
       rate6,
       likely,
-      estimatedClosing: formData.estimatedClosing ? format(formData.estimatedClosing, "PPP") : "TBD",
+      estimatedClosing: formData.estimatedClosing || new Date(),
       listingStatus: formData.listingStatus,
       commissionStatus: formData.commissionStatus
     };
