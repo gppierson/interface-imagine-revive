@@ -83,6 +83,15 @@ export function CompactHeader({
               >
                 Offer Intelligence
               </Button>
+
+              <Button 
+                variant="default"
+                size="sm"
+                onClick={() => navigate("/commissions")}
+                className="h-8 px-4 text-xs font-semibold bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-200"
+              >
+                Commissions
+              </Button>
             </div>
           </div>
 
