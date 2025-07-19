@@ -382,9 +382,9 @@ export default function Commissions() {
             <p className="text-sm text-muted-foreground">Track and manage your commission earnings</p>
           </CardHeader>
           <CardContent className="p-0">
-            <div className="bg-gray-50 border-b border-gray-200">
+            <div className="bg-gray-100 border-b border-gray-200">
               {/* Table Header */}
-              <div className="grid grid-cols-12 gap-4 py-3 px-6 text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <div className="grid grid-cols-12 gap-4 py-3 px-6 text-xs font-medium text-gray-600 uppercase tracking-wider">
                 <div className="col-span-1"></div>
                 <div className="col-span-3">PROPERTY</div>
                 <div className="col-span-1 text-right">3% RATE</div>
@@ -397,13 +397,13 @@ export default function Commissions() {
               </div>
             </div>
             
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-gray-200">
               {filteredCommissions.map((commission, index) => (
                 <div 
                   key={commission.id} 
                   className={cn(
-                    "grid grid-cols-12 gap-4 py-4 px-6 hover:bg-gray-50 transition-colors",
-                    index % 2 === 0 ? "bg-white" : "bg-gray-50/50"
+                    "grid grid-cols-12 gap-4 py-3 px-6 hover:bg-gray-50 transition-colors",
+                    index % 2 === 0 ? "bg-white" : "bg-gray-50"
                   )}
                 >
                   {/* Expand Arrow & Type Badge */}
