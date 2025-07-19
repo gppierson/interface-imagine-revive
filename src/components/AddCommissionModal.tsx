@@ -227,15 +227,16 @@ export function AddCommissionModal({ onAddCommission }: AddCommissionModalProps)
             
             <div>
               <Label htmlFor="commissionRate">Expected Commission Rate</Label>
-              <Select value={formData.commissionRate} onValueChange={(value) => handleInputChange("commissionRate", value)}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="3">3%</SelectItem>
-                  <SelectItem value="6">6%</SelectItem>
-                </SelectContent>
-              </Select>
+              <Input
+                id="commissionRate"
+                type="number"
+                value={formData.commissionRate}
+                onChange={(e) => handleInputChange("commissionRate", e.target.value)}
+                placeholder="Enter commission rate"
+                min="0"
+                max="100"
+                step="0.1"
+              />
             </div>
             
             <div>
