@@ -374,13 +374,13 @@ export default function Commissions() {
           <CardContent className="p-0">
             <div className="bg-gray-100 border-b border-gray-200">
               {/* Table Header */}
-              <div className="grid grid-cols-11 gap-4 py-3 px-6 text-xs font-medium text-gray-600 uppercase tracking-wider">
+              <div className="grid grid-cols-12 gap-4 py-3 px-6 text-xs font-medium text-gray-600 uppercase tracking-wider">
                 <div className="col-span-3">PROPERTY</div>
                 <div className="col-span-1 text-right">3% RATE</div>
                 <div className="col-span-1 text-right">6% RATE</div>
                 <div className="col-span-1 text-right">LIKELY</div>
                 <div className="col-span-2">EST. CLOSING</div>
-                <div className="col-span-1">STATUS</div>
+                <div className="col-span-2">STATUS</div>
                 <div className="col-span-1">COMMISSION</div>
                 <div className="col-span-1 text-center">ACTIONS</div>
               </div>
@@ -391,7 +391,7 @@ export default function Commissions() {
                 <div 
                   key={commission.id} 
                   className={cn(
-                    "grid grid-cols-11 gap-4 py-3 px-6 hover:bg-gray-50 transition-colors",
+                    "grid grid-cols-12 gap-4 py-3 px-6 hover:bg-gray-50 transition-colors",
                     index % 2 === 0 ? "bg-white" : "bg-gray-50"
                   )}
                 >
@@ -438,18 +438,18 @@ export default function Commissions() {
                     </div>
                   </div>
                   
-                  {/* Listing Status */}
-                  <div className="col-span-1">
-                    {getListingStatusBadge(commission.listingStatus)}
-                  </div>
-                  
-                  {/* Commission Status */}
-                  <div className="col-span-1">
-                    {getCommissionStatusBadge(commission.commissionStatus)}
-                  </div>
-                  
-                  {/* Actions */}
-                  <div className="col-span-1">
+                   {/* Status - Both listing and commission status */}
+                   <div className="col-span-2 flex gap-2">
+                     {getListingStatusBadge(commission.listingStatus)}
+                   </div>
+                   
+                   {/* Commission Status */}
+                   <div className="col-span-1">
+                     {getCommissionStatusBadge(commission.commissionStatus)}
+                   </div>
+                   
+                   {/* Actions */}
+                   <div className="col-span-1">
                     <div className="flex items-center justify-center gap-1">
                       <Button
                         variant="ghost"
@@ -477,7 +477,7 @@ export default function Commissions() {
             
             {/* Totals Footer */}
             <div className="border-t-2 border-gray-200 bg-gray-50">
-              <div className="grid grid-cols-11 gap-4 py-4 px-6">
+              <div className="grid grid-cols-12 gap-4 py-4 px-6">
                 <div className="col-span-3">
                   <span className="text-base font-semibold text-gray-900">Totals</span>
                 </div>
@@ -496,7 +496,7 @@ export default function Commissions() {
                     ${totals.likely.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                   </span>
                 </div>
-                <div className="col-span-5"></div>
+                <div className="col-span-6"></div>
               </div>
             </div>
           </CardContent>
