@@ -4,8 +4,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Plus } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Plus, CalendarIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 
 interface Property {
   id: string;
@@ -106,7 +110,7 @@ export function AddCommissionModal({ onAddCommission }: AddCommissionModalProps)
   const [formData, setFormData] = useState({
     selectedListing: "",
     commissionRate: "3",
-    estimatedClosing: "",
+    estimatedClosing: undefined as Date | undefined,
     listingStatus: "listed" as const,
     commissionStatus: "not-paid" as const
   });
@@ -145,7 +149,7 @@ export function AddCommissionModal({ onAddCommission }: AddCommissionModalProps)
       rate3,
       rate6,
       likely,
-      estimatedClosing: formData.estimatedClosing || "TBD",
+      estimatedClosing: formData.estimatedClosing ? format(formData.estimatedClosing, "PPP") : "TBD",
       listingStatus: formData.listingStatus,
       commissionStatus: formData.commissionStatus
     };
@@ -161,7 +165,7 @@ export function AddCommissionModal({ onAddCommission }: AddCommissionModalProps)
     setFormData({
       selectedListing: "",
       commissionRate: "3",
-      estimatedClosing: "",
+      estimatedClosing: undefined,
       listingStatus: "listed",
       commissionStatus: "not-paid"
     });
@@ -169,7 +173,7 @@ export function AddCommissionModal({ onAddCommission }: AddCommissionModalProps)
     setOpen(false);
   };
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (field: string, value: string | Date | undefined) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -236,12 +240,29 @@ export function AddCommissionModal({ onAddCommission }: AddCommissionModalProps)
             
             <div>
               <Label htmlFor="estimatedClosing">Estimated Closing</Label>
-              <Input
-                id="estimatedClosing"
-                value={formData.estimatedClosing}
-                onChange={(e) => handleInputChange("estimatedClosing", e.target.value)}
-                placeholder="e.g., Q2 2025, July 2025"
-              />
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className={cn(
+                      "w-full justify-start text-left font-normal",
+                      !formData.estimatedClosing && "text-muted-foreground"
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {formData.estimatedClosing ? format(formData.estimatedClosing, "PPP") : <span>Pick a date</span>}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={formData.estimatedClosing}
+                    onSelect={(date) => handleInputChange("estimatedClosing", date)}
+                    initialFocus
+                    className="pointer-events-auto"
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
             
             <div>
