@@ -5,7 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Building2, DollarSign, TrendingUp, Calendar, Users, Search, Filter, Plus } from "lucide-react";
+import { Building2, DollarSign, TrendingUp, Calendar, Users, Search, Filter } from "lucide-react";
+import { AddCommissionModal } from "@/components/AddCommissionModal";
 import crestLogo from "@/assets/crest-realty-logo.svg";
 
 interface Commission {
@@ -124,10 +125,11 @@ const mockCommissions: Commission[] = [
 
 export default function Commissions() {
   const navigate = useNavigate();
+  const [commissions, setCommissions] = useState<Commission[]>(mockCommissions);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<"all" | "pending" | "confirmed" | "paid">("all");
 
-  const filteredCommissions = mockCommissions.filter(commission => {
+  const filteredCommissions = commissions.filter(commission => {
     const matchesSearch = commission.property.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          commission.client.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus = statusFilter === "all" || commission.status === statusFilter;
@@ -141,10 +143,18 @@ export default function Commissions() {
   };
 
   const statusCounts = {
-    all: mockCommissions.length,
-    pending: mockCommissions.filter(c => c.status === "pending").length,
-    confirmed: mockCommissions.filter(c => c.status === "confirmed").length,
-    paid: mockCommissions.filter(c => c.status === "paid").length
+    all: commissions.length,
+    pending: commissions.filter(c => c.status === "pending").length,
+    confirmed: commissions.filter(c => c.status === "confirmed").length,
+    paid: commissions.filter(c => c.status === "paid").length
+  };
+
+  const handleAddCommission = (newCommission: Omit<Commission, 'id'>) => {
+    const commission: Commission = {
+      ...newCommission,
+      id: Date.now().toString()
+    };
+    setCommissions(prev => [...prev, commission]);
   };
 
   const getStatusBadge = (status: string) => {
@@ -275,14 +285,7 @@ export default function Commissions() {
                   className="pl-10 sm:pl-7 h-10 sm:h-7 w-full sm:w-60 text-sm sm:text-xs"
                 />
               </div>
-              <Button 
-                variant="outline"
-                size="sm"
-                className="h-10 sm:h-7 px-3 text-sm sm:text-xs gap-1"
-              >
-                <Plus className="w-4 h-4 sm:w-3 sm:h-3" />
-                Add Commission
-              </Button>
+              <AddCommissionModal onAddCommission={handleAddCommission} />
             </div>
           </div>
         </div>
