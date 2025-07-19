@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -181,24 +182,24 @@ export default function Commissions() {
   const getCommissionStatusBadge = (commissionStatus: string) => {
     switch (commissionStatus) {
       case "paid":
-        return <Badge variant="default" className="bg-green-100 text-green-700 border-green-200">Paid</Badge>;
+        return <Badge variant="default" className="bg-emerald-100 text-emerald-800 border-emerald-200 font-medium px-3 py-1">Paid</Badge>;
       default:
-        return <Badge variant="outline" className="text-muted-foreground">Not Paid</Badge>;
+        return <Badge variant="outline" className="text-slate-600 border-slate-300 font-medium px-3 py-1">Not Paid</Badge>;
     }
   };
 
   const getListingStatusBadge = (listingStatus: string) => {
     switch (listingStatus) {
       case "listed":
-        return <Badge variant="outline" className="text-blue-600 border-blue-200">Listed</Badge>;
+        return <Badge variant="outline" className="text-blue-700 border-blue-300 bg-blue-50 font-medium px-3 py-1">Listed</Badge>;
       case "pending":
-        return <Badge variant="default" className="bg-yellow-100 text-yellow-700 border-yellow-200">Pending</Badge>;
+        return <Badge variant="default" className="bg-amber-100 text-amber-800 border-amber-200 font-medium px-3 py-1">Pending</Badge>;
       case "sold":
-        return <Badge variant="default" className="bg-green-100 text-green-700 border-green-200">Sold</Badge>;
+        return <Badge variant="default" className="bg-emerald-100 text-emerald-800 border-emerald-200 font-medium px-3 py-1">Sold</Badge>;
       case "withdrawn":
-        return <Badge variant="outline" className="text-gray-600 border-gray-200">Withdrawn</Badge>;
+        return <Badge variant="outline" className="text-gray-600 border-gray-300 bg-gray-50 font-medium px-3 py-1">Withdrawn</Badge>;
       default:
-        return <Badge variant="outline" className="text-muted-foreground">Unknown</Badge>;
+        return <Badge variant="outline" className="text-muted-foreground font-medium px-3 py-1">Unknown</Badge>;
     }
   };
 
@@ -364,59 +365,99 @@ export default function Commissions() {
         </div>
 
         {/* Commission Table */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg font-semibold">Commission Pipeline</CardTitle>
+        <Card className="shadow-sm border-border/40">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-xl font-semibold text-foreground">Commission Pipeline</CardTitle>
+            <p className="text-sm text-muted-foreground">Track and manage your commission earnings</p>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-0">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-border">
-                    <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">Property</th>
-                    <th className="text-right py-3 px-2 text-sm font-medium text-muted-foreground">3% Rate</th>
-                    <th className="text-right py-3 px-2 text-sm font-medium text-muted-foreground">6% Rate</th>
-                    <th className="text-right py-3 px-2 text-sm font-medium text-muted-foreground">Likely</th>
-                    <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">Est. Closing</th>
-                    <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">Listing Status</th>
-                    <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">Commission Status</th>
-                    <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">Actions</th>
+                  <tr className="border-b-2 border-border bg-muted/30">
+                    <th className="text-left py-4 px-6 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                      Property
+                    </th>
+                    <th className="text-right py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                      3% Rate
+                    </th>
+                    <th className="text-right py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                      6% Rate
+                    </th>
+                    <th className="text-right py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                      Likely
+                    </th>
+                    <th className="text-left py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                      Est. Closing
+                    </th>
+                    <th className="text-left py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                      Listing Status
+                    </th>
+                    <th className="text-left py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                      Commission Status
+                    </th>
+                    <th className="text-center py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                      Actions
+                    </th>
                   </tr>
                 </thead>
-                <tbody>
-                  {filteredCommissions.map((commission) => (
-                    <tr key={commission.id} className="border-b border-border/50 hover:bg-muted/20 transition-colors">
-                      <td className="py-3 px-2">
-                        <div className="font-medium text-sm">{commission.property}</div>
-                        <div className="text-xs text-muted-foreground">
-                          ${commission.listingPrice.toLocaleString()}
+                <tbody className="divide-y divide-border/50">
+                  {filteredCommissions.map((commission, index) => (
+                    <tr 
+                      key={commission.id} 
+                      className={cn(
+                        "transition-colors duration-150 hover:bg-muted/40",
+                        index % 2 === 0 ? "bg-background" : "bg-muted/10"
+                      )}
+                    >
+                      <td className="py-4 px-6">
+                        <div className="space-y-1">
+                          <div className="font-medium text-sm text-foreground leading-tight">
+                            {commission.property}
+                          </div>
+                          <div className="text-xs text-muted-foreground font-medium">
+                            ${commission.listingPrice.toLocaleString()}
+                          </div>
                         </div>
                       </td>
-                      <td className="py-3 px-2 text-right text-sm font-medium">
-                        ${commission.rate3.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                      <td className="py-4 px-4 text-right">
+                        <span className="text-sm font-semibold text-foreground">
+                          ${commission.rate3.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                        </span>
                       </td>
-                      <td className="py-3 px-2 text-right text-sm font-medium">
-                        ${commission.rate6.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                      <td className="py-4 px-4 text-right">
+                        <span className="text-sm font-semibold text-foreground">
+                          ${commission.rate6.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                        </span>
                       </td>
-                      <td className="py-3 px-2 text-right text-sm font-bold text-emerald-600">
-                        ${commission.likely.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                      <td className="py-4 px-4 text-right">
+                        <span className="text-sm font-bold text-emerald-600">
+                          ${commission.likely.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                        </span>
                       </td>
-                      <td className="py-3 px-2 text-sm text-muted-foreground">
-                        {commission.estimatedClosing.toLocaleDateString('en-US', { 
-                          year: 'numeric', 
-                          month: 'short', 
-                          day: 'numeric' 
-                        })}
+                      <td className="py-4 px-4">
+                        <span className="text-sm text-muted-foreground font-medium">
+                          {commission.estimatedClosing.toLocaleDateString('en-US', { 
+                            year: 'numeric', 
+                            month: 'short', 
+                            day: 'numeric' 
+                          })}
+                        </span>
                       </td>
-                      <td className="py-3 px-2">{getListingStatusBadge(commission.listingStatus)}</td>
-                      <td className="py-3 px-2">{getCommissionStatusBadge(commission.commissionStatus)}</td>
-                      <td className="py-3 px-2">
-                        <div className="flex items-center gap-1">
+                      <td className="py-4 px-4">
+                        {getListingStatusBadge(commission.listingStatus)}
+                      </td>
+                      <td className="py-4 px-4">
+                        {getCommissionStatusBadge(commission.commissionStatus)}
+                      </td>
+                      <td className="py-4 px-4">
+                        <div className="flex items-center justify-center gap-2">
                           <Button
                             variant="ghost"
                             size="sm"
                             onClick={() => handleEditCommission(commission.id)}
-                            className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground"
+                            className="h-8 w-8 p-0 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                            title="Edit commission"
                           >
                             <Edit className="h-4 w-4" />
                           </Button>
@@ -424,7 +465,8 @@ export default function Commissions() {
                             variant="ghost"
                             size="sm"
                             onClick={() => handleDeleteCommission(commission.id)}
-                            className="h-8 w-8 p-0 text-muted-foreground hover:text-destructive"
+                            className="h-8 w-8 p-0 text-muted-foreground hover:text-red-600 hover:bg-red-50 transition-colors"
+                            title="Delete commission"
                           >
                             <Trash2 className="h-4 w-4" />
                           </Button>
@@ -434,21 +476,29 @@ export default function Commissions() {
                   ))}
                 </tbody>
                 <tfoot>
-                  <tr className="border-t-2 border-border bg-muted/10">
-                    <td className="py-3 px-2 font-semibold text-sm">Totals</td>
-                    <td className="py-3 px-2 text-right font-bold text-sm">
-                      ${totals.rate3.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                  <tr className="border-t-2 border-border bg-gradient-to-r from-muted/50 to-muted/30">
+                    <td className="py-5 px-6">
+                      <span className="text-base font-bold text-foreground">Totals</span>
                     </td>
-                    <td className="py-3 px-2 text-right font-bold text-sm">
-                      ${totals.rate6.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                    <td className="py-5 px-4 text-right">
+                      <span className="text-sm font-bold text-foreground">
+                        ${totals.rate3.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                      </span>
                     </td>
-                    <td className="py-3 px-2 text-right font-bold text-sm text-emerald-600">
-                      ${totals.likely.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                    <td className="py-5 px-4 text-right">
+                      <span className="text-sm font-bold text-foreground">
+                        ${totals.rate6.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                      </span>
                     </td>
-                    <td className="py-3 px-2"></td>
-                    <td className="py-3 px-2"></td>
-                    <td className="py-3 px-2"></td>
-                    <td className="py-3 px-2"></td>
+                    <td className="py-5 px-4 text-right">
+                      <span className="text-base font-bold text-emerald-600">
+                        ${totals.likely.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                      </span>
+                    </td>
+                    <td className="py-5 px-4"></td>
+                    <td className="py-5 px-4"></td>
+                    <td className="py-5 px-4"></td>
+                    <td className="py-5 px-4"></td>
                   </tr>
                 </tfoot>
               </table>
