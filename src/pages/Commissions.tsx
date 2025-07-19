@@ -203,6 +203,17 @@ export default function Commissions() {
     }
   };
 
+  const getCommissionTypeBadge = (property: string) => {
+    // Determine type based on property characteristics
+    if (property.toLowerCase().includes('business') || property.toLowerCase().includes('craft')) {
+      return <Badge className="bg-orange-100 text-orange-700 border-orange-200 text-xs px-2 py-1 font-medium">Business</Badge>;
+    } else if (property.toLowerCase().includes('lease') || property.toLowerCase().includes('rent')) {
+      return <Badge className="bg-blue-100 text-blue-700 border-blue-200 text-xs px-2 py-1 font-medium">Lease</Badge>;
+    } else {
+      return <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200 text-xs px-2 py-1 font-medium">Sale</Badge>;
+    }
+  };
+
 
   return (
     <div className="min-h-screen bg-background">
@@ -372,39 +383,49 @@ export default function Commissions() {
             <p className="text-sm text-muted-foreground">Track and manage your commission earnings</p>
           </CardHeader>
           <CardContent className="p-0">
-            <div className="bg-gray-100 border-b border-gray-200">
+            <div className="bg-gray-50 border-b">
               {/* Table Header */}
-              <div className="grid grid-cols-12 gap-4 py-3 px-6 text-xs font-medium text-gray-600 uppercase tracking-wider">
+              <div className="grid grid-cols-12 gap-4 py-3 px-6 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <div className="col-span-1">TYPE</div>
                 <div className="col-span-3">PROPERTY</div>
                 <div className="col-span-1 text-right">3% RATE</div>
                 <div className="col-span-1 text-right">6% RATE</div>
                 <div className="col-span-1 text-right">LIKELY</div>
                 <div className="col-span-2">EST. CLOSING</div>
-                <div className="col-span-2">STATUS</div>
+                <div className="col-span-1">STATUS</div>
                 <div className="col-span-1">COMMISSION</div>
                 <div className="col-span-1 text-center">ACTIONS</div>
               </div>
             </div>
             
-            <div className="divide-y divide-gray-200">
+            <div className="divide-y divide-gray-100">
               {filteredCommissions.map((commission, index) => (
                 <div 
                   key={commission.id} 
                   className={cn(
-                    "grid grid-cols-12 gap-4 py-3 px-6 hover:bg-gray-50 transition-colors",
-                    index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                    "grid grid-cols-12 gap-4 py-4 px-6 hover:bg-gray-50/50 transition-colors",
+                    index % 2 === 0 ? "bg-white" : "bg-gray-50/30"
                   )}
                 >
-                  {/* Property Info */}
-                  <div className="col-span-3">
-                    <div className="font-medium text-sm text-gray-900 leading-tight">
-                      {commission.property}
-                    </div>
-                    <div className="text-xs text-gray-500 mt-1">
-                      LISTING PRICE: <span className="font-medium">${commission.listingPrice.toLocaleString()}</span>
-                    </div>
+                  {/* Type Badge */}
+                  <div className="col-span-1 flex items-center">
+                    <ChevronRight className="w-3 h-3 text-gray-300 mr-2" />
+                    {getCommissionTypeBadge(commission.property)}
                   </div>
                   
+                  {/* Property Info */}
+                  <div className="col-span-3">
+                    <div className="font-medium text-sm text-gray-900 mb-1">
+                      {commission.property}
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      <span className="text-gray-400">Add nickname...</span>
+                    </div>
+                    <div className="text-xs text-gray-500 mt-1">
+                      Listing Price: <span className="font-medium text-gray-700">${commission.listingPrice.toLocaleString()}</span>
+                    </div>
+                  </div>
+                   
                   {/* Commission Rates */}
                   <div className="col-span-1 text-right">
                     <div className="text-sm font-medium text-gray-900">
@@ -426,48 +447,57 @@ export default function Commissions() {
                   
                   {/* Est. Closing */}
                   <div className="col-span-2">
-                    <div className="text-sm text-gray-600">
+                    <div className="text-sm text-gray-900">
                       {commission.estimatedClosing.toLocaleDateString('en-US', { 
-                        month: '2-digit',
-                        day: '2-digit',
+                        month: 'numeric',
+                        day: 'numeric',
                         year: 'numeric'
                       })}
                     </div>
-                    <div className="text-xs text-gray-500">
-                      DOM: {Math.floor((new Date().getTime() - commission.estimatedClosing.getTime()) / (1000 * 60 * 60 * 24))}
+                  </div>
+                  
+                  {/* Status */}
+                  <div className="col-span-1 flex items-center">
+                    <div className="flex items-center gap-1">
+                      <div className={cn(
+                        "w-2 h-2 rounded-full",
+                        commission.listingStatus === "listed" ? "bg-emerald-500" :
+                        commission.listingStatus === "pending" ? "bg-orange-500" :
+                        commission.listingStatus === "sold" ? "bg-blue-500" : "bg-gray-400"
+                      )} />
+                      <span className="text-sm text-gray-700">
+                        {commission.listingStatus === "pending" ? "Under Contract" : 
+                         commission.listingStatus.charAt(0).toUpperCase() + commission.listingStatus.slice(1)}
+                      </span>
+                      <ChevronRight className="w-3 h-3 text-gray-400 ml-1" />
                     </div>
                   </div>
                   
-                   {/* Status - Both listing and commission status */}
-                   <div className="col-span-2 flex gap-2">
-                     {getListingStatusBadge(commission.listingStatus)}
-                   </div>
-                   
-                   {/* Commission Status */}
-                   <div className="col-span-1">
-                     {getCommissionStatusBadge(commission.commissionStatus)}
-                   </div>
-                   
-                   {/* Actions */}
-                   <div className="col-span-1">
+                  {/* Commission Status */}
+                  <div className="col-span-1">
+                    {getCommissionStatusBadge(commission.commissionStatus)}
+                  </div>
+                  
+                  {/* Actions */}
+                  <div className="col-span-1">
                     <div className="flex items-center justify-center gap-1">
                       <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => handleEditCommission(commission.id)}
-                        className="h-7 w-7 p-0 text-gray-400 hover:text-blue-600 hover:bg-blue-50"
+                        className="h-6 w-6 p-0 text-gray-400 hover:text-blue-600 hover:bg-blue-50"
                         title="Edit commission"
                       >
-                        <Edit className="h-3.5 w-3.5" />
+                        <Edit className="h-3 w-3" />
                       </Button>
                       <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => handleDeleteCommission(commission.id)}
-                        className="h-7 w-7 p-0 text-gray-400 hover:text-red-600 hover:bg-red-50"
+                        className="h-6 w-6 p-0 text-gray-400 hover:text-red-600 hover:bg-red-50"
                         title="Delete commission"
                       >
-                        <Trash2 className="h-3.5 w-3.5" />
+                        <Trash2 className="h-3 w-3" />
                       </Button>
                     </div>
                   </div>
@@ -478,7 +508,7 @@ export default function Commissions() {
             {/* Totals Footer */}
             <div className="border-t-2 border-gray-200 bg-gray-50">
               <div className="grid grid-cols-12 gap-4 py-4 px-6">
-                <div className="col-span-3">
+                <div className="col-span-4">
                   <span className="text-base font-semibold text-gray-900">Totals</span>
                 </div>
                 <div className="col-span-1 text-right">
@@ -496,7 +526,7 @@ export default function Commissions() {
                     ${totals.likely.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                   </span>
                 </div>
-                <div className="col-span-6"></div>
+                <div className="col-span-5"></div>
               </div>
             </div>
           </CardContent>
