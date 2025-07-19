@@ -307,7 +307,7 @@ export default function Commissions() {
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4 sm:w-3 sm:h-3" />
                 <Input
-                  placeholder="Search properties or clients..."
+                  placeholder="Search deals"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-10 sm:pl-7 h-10 sm:h-7 w-full sm:w-60 text-sm sm:text-xs"
