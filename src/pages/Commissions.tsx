@@ -16,7 +16,8 @@ interface Commission {
   rate6: number;
   likely: number;
   estimatedClosing: string;
-  status: "pending" | "confirmed" | "paid";
+  listingStatus: "listed" | "pending" | "sold" | "withdrawn";
+  commissionStatus: "not-paid" | "paid";
   client: string;
   listingPrice: number;
 }
@@ -29,7 +30,8 @@ const mockCommissions: Commission[] = [
     rate6: 11597.85,
     likely: 11597.85,
     estimatedClosing: "Q2 2025",
-    status: "confirmed",
+    listingStatus: "listed",
+    commissionStatus: "not-paid",
     client: "Tefco Corp",
     listingPrice: 386595.00
   },
@@ -40,7 +42,8 @@ const mockCommissions: Commission[] = [
     rate6: 2970.00,
     likely: 2970.00,
     estimatedClosing: "Q2 2025",
-    status: "confirmed",
+    listingStatus: "listed",
+    commissionStatus: "not-paid",
     client: "Tefco Corp",
     listingPrice: 99000.00
   },
@@ -51,7 +54,8 @@ const mockCommissions: Commission[] = [
     rate6: 12128.74,
     likely: 12128.74,
     estimatedClosing: "Q3 2025",
-    status: "pending",
+    listingStatus: "pending",
+    commissionStatus: "not-paid",
     client: "Frito Lay Inc",
     listingPrice: 404291.33
   },
@@ -62,7 +66,8 @@ const mockCommissions: Commission[] = [
     rate6: 27843.75,
     likely: 13921.88,
     estimatedClosing: "Q3 2025",
-    status: "pending",
+    listingStatus: "pending",
+    commissionStatus: "not-paid",
     client: "Key Bank Corp",
     listingPrice: 464062.50
   },
@@ -73,7 +78,8 @@ const mockCommissions: Commission[] = [
     rate6: 12375.00,
     likely: 12375.00,
     estimatedClosing: "July 2025",
-    status: "confirmed",
+    listingStatus: "listed",
+    commissionStatus: "not-paid",
     client: "Cornerstone Dev",
     listingPrice: 309375.00
   },
@@ -84,7 +90,8 @@ const mockCommissions: Commission[] = [
     rate6: 10395.00,
     likely: 3712.50,
     estimatedClosing: "Q4 2025",
-    status: "pending",
+    listingStatus: "pending",
+    commissionStatus: "not-paid",
     client: "Gray Cliff LLC",
     listingPrice: 173250.00
   },
@@ -95,7 +102,8 @@ const mockCommissions: Commission[] = [
     rate6: 8910.00,
     likely: 4455.00,
     estimatedClosing: "Q4 2025",
-    status: "pending",
+    listingStatus: "pending",
+    commissionStatus: "not-paid",
     client: "Collision Craft",
     listingPrice: 148500.00
   },
@@ -106,7 +114,8 @@ const mockCommissions: Commission[] = [
     rate6: 27843.75,
     likely: 13921.88,
     estimatedClosing: "Q1 2026",
-    status: "pending",
+    listingStatus: "pending",
+    commissionStatus: "not-paid",
     client: "Hearth & Home",
     listingPrice: 464062.50
   },
@@ -117,7 +126,8 @@ const mockCommissions: Commission[] = [
     rate6: 13365.00,
     likely: 6682.50,
     estimatedClosing: "Q1 2026",
-    status: "pending",
+    listingStatus: "pending",
+    commissionStatus: "not-paid",
     client: "Quincy Investments",
     listingPrice: 222750.00
   }
@@ -127,12 +137,12 @@ export default function Commissions() {
   const navigate = useNavigate();
   const [commissions, setCommissions] = useState<Commission[]>(mockCommissions);
   const [searchQuery, setSearchQuery] = useState("");
-  const [statusFilter, setStatusFilter] = useState<"all" | "pending" | "confirmed" | "paid">("all");
+  const [statusFilter, setStatusFilter] = useState<"all" | "not-paid" | "paid">("all");
 
   const filteredCommissions = commissions.filter(commission => {
     const matchesSearch = commission.property.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          commission.client.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesStatus = statusFilter === "all" || commission.status === statusFilter;
+    const matchesStatus = statusFilter === "all" || commission.commissionStatus === statusFilter;
     return matchesSearch && matchesStatus;
   });
 
@@ -144,9 +154,8 @@ export default function Commissions() {
 
   const statusCounts = {
     all: commissions.length,
-    pending: commissions.filter(c => c.status === "pending").length,
-    confirmed: commissions.filter(c => c.status === "confirmed").length,
-    paid: commissions.filter(c => c.status === "paid").length
+    "not-paid": commissions.filter(c => c.commissionStatus === "not-paid").length,
+    paid: commissions.filter(c => c.commissionStatus === "paid").length
   };
 
   const handleAddCommission = (newCommission: Omit<Commission, 'id'>) => {
@@ -157,14 +166,27 @@ export default function Commissions() {
     setCommissions(prev => [...prev, commission]);
   };
 
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case "confirmed":
-        return <Badge variant="default" className="bg-green-100 text-green-700 border-green-200">Confirmed</Badge>;
+  const getCommissionStatusBadge = (commissionStatus: string) => {
+    switch (commissionStatus) {
       case "paid":
-        return <Badge variant="default" className="bg-blue-100 text-blue-700 border-blue-200">Paid</Badge>;
+        return <Badge variant="default" className="bg-green-100 text-green-700 border-green-200">Paid</Badge>;
       default:
-        return <Badge variant="outline" className="text-muted-foreground">Pending</Badge>;
+        return <Badge variant="outline" className="text-muted-foreground">Not Paid</Badge>;
+    }
+  };
+
+  const getListingStatusBadge = (listingStatus: string) => {
+    switch (listingStatus) {
+      case "listed":
+        return <Badge variant="outline" className="text-blue-600 border-blue-200">Listed</Badge>;
+      case "pending":
+        return <Badge variant="default" className="bg-yellow-100 text-yellow-700 border-yellow-200">Pending</Badge>;
+      case "sold":
+        return <Badge variant="default" className="bg-green-100 text-green-700 border-green-200">Sold</Badge>;
+      case "withdrawn":
+        return <Badge variant="outline" className="text-gray-600 border-gray-200">Withdrawn</Badge>;
+      default:
+        return <Badge variant="outline" className="text-muted-foreground">Unknown</Badge>;
     }
   };
 
@@ -249,20 +271,12 @@ export default function Commissions() {
                   All ({statusCounts.all})
                 </Button>
                 <Button
-                  variant={statusFilter === "pending" ? "default" : "outline"}
+                  variant={statusFilter === "not-paid" ? "default" : "outline"}
                   size="sm"
-                  onClick={() => setStatusFilter("pending")}
+                  onClick={() => setStatusFilter("not-paid")}
                   className="h-9 sm:h-7 px-3 sm:px-2 text-sm sm:text-xs"
                 >
-                  Pending ({statusCounts.pending})
-                </Button>
-                <Button
-                  variant={statusFilter === "confirmed" ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setStatusFilter("confirmed")}
-                  className="h-9 sm:h-7 px-3 sm:px-2 text-sm sm:text-xs"
-                >
-                  Confirmed ({statusCounts.confirmed})
+                  Not Paid ({statusCounts["not-paid"]})
                 </Button>
                 <Button
                   variant={statusFilter === "paid" ? "default" : "outline"}
@@ -353,7 +367,8 @@ export default function Commissions() {
                     <th className="text-right py-3 px-2 text-sm font-medium text-muted-foreground">6% Rate</th>
                     <th className="text-right py-3 px-2 text-sm font-medium text-muted-foreground">Likely</th>
                     <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">Est. Closing</th>
-                    <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">Status</th>
+                    <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">Listing Status</th>
+                    <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">Commission Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -376,7 +391,8 @@ export default function Commissions() {
                         ${commission.likely.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                       </td>
                       <td className="py-3 px-2 text-sm text-muted-foreground">{commission.estimatedClosing}</td>
-                      <td className="py-3 px-2">{getStatusBadge(commission.status)}</td>
+                      <td className="py-3 px-2">{getListingStatusBadge(commission.listingStatus)}</td>
+                      <td className="py-3 px-2">{getCommissionStatusBadge(commission.commissionStatus)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -393,6 +409,7 @@ export default function Commissions() {
                     <td className="py-3 px-2 text-right font-bold text-sm text-emerald-600">
                       ${totals.likely.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
+                    <td className="py-3 px-2"></td>
                     <td className="py-3 px-2"></td>
                     <td className="py-3 px-2"></td>
                   </tr>
