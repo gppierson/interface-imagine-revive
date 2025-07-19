@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Building2, DollarSign, TrendingUp, Calendar, Users, Search, Filter, Edit, Trash2 } from "lucide-react";
+import { Building2, DollarSign, TrendingUp, Calendar, Users, Search, Filter, Edit, Trash2, ChevronRight } from "lucide-react";
 import { AddCommissionModal } from "@/components/AddCommissionModal";
 import crestLogo from "@/assets/crest-realty-logo.svg";
 
@@ -182,24 +182,35 @@ export default function Commissions() {
   const getCommissionStatusBadge = (commissionStatus: string) => {
     switch (commissionStatus) {
       case "paid":
-        return <Badge variant="default" className="bg-emerald-100 text-emerald-800 border-emerald-200 font-medium px-3 py-1">Paid</Badge>;
+        return <Badge className="bg-emerald-500 hover:bg-emerald-600 text-white border-0 text-xs px-3 py-1">Paid</Badge>;
       default:
-        return <Badge variant="outline" className="text-slate-600 border-slate-300 font-medium px-3 py-1">Not Paid</Badge>;
+        return <Badge variant="outline" className="text-gray-600 border-gray-300 text-xs px-3 py-1">Not Paid</Badge>;
     }
   };
 
   const getListingStatusBadge = (listingStatus: string) => {
     switch (listingStatus) {
       case "listed":
-        return <Badge variant="outline" className="text-blue-700 border-blue-300 bg-blue-50 font-medium px-3 py-1">Listed</Badge>;
+        return <Badge className="bg-emerald-500 hover:bg-emerald-600 text-white border-0 text-xs px-3 py-1">Listed</Badge>;
       case "pending":
-        return <Badge variant="default" className="bg-amber-100 text-amber-800 border-amber-200 font-medium px-3 py-1">Pending</Badge>;
+        return <Badge className="bg-orange-500 hover:bg-orange-600 text-white border-0 text-xs px-3 py-1">Under Contract</Badge>;
       case "sold":
-        return <Badge variant="default" className="bg-emerald-100 text-emerald-800 border-emerald-200 font-medium px-3 py-1">Sold</Badge>;
+        return <Badge className="bg-blue-500 hover:bg-blue-600 text-white border-0 text-xs px-3 py-1">Sold</Badge>;
       case "withdrawn":
-        return <Badge variant="outline" className="text-gray-600 border-gray-300 bg-gray-50 font-medium px-3 py-1">Withdrawn</Badge>;
+        return <Badge variant="outline" className="text-gray-600 border-gray-300 text-xs px-3 py-1">Withdrawn</Badge>;
       default:
-        return <Badge variant="outline" className="text-muted-foreground font-medium px-3 py-1">Unknown</Badge>;
+        return <Badge variant="outline" className="text-gray-600 border-gray-300 text-xs px-3 py-1">Unknown</Badge>;
+    }
+  };
+
+  const getCommissionTypeBadge = (property: string) => {
+    // Determine type based on property characteristics
+    if (property.toLowerCase().includes('business') || property.toLowerCase().includes('craft')) {
+      return <Badge className="bg-orange-100 text-orange-700 border-orange-200 text-xs px-3 py-1 font-medium">Business</Badge>;
+    } else if (property.toLowerCase().includes('commercial') || property.toLowerCase().includes('office')) {
+      return <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200 text-xs px-3 py-1 font-medium">Commercial Sale</Badge>;
+    } else {
+      return <Badge className="bg-blue-100 text-blue-700 border-blue-200 text-xs px-3 py-1 font-medium">Property Sale</Badge>;
     }
   };
 
@@ -371,137 +382,139 @@ export default function Commissions() {
             <p className="text-sm text-muted-foreground">Track and manage your commission earnings</p>
           </CardHeader>
           <CardContent className="p-0">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b-2 border-border bg-muted/30">
-                    <th className="text-left py-4 px-6 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                      Property
-                    </th>
-                    <th className="text-right py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                      3% Rate
-                    </th>
-                    <th className="text-right py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                      6% Rate
-                    </th>
-                    <th className="text-right py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                      Likely
-                    </th>
-                    <th className="text-left py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                      Est. Closing
-                    </th>
-                    <th className="text-left py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                      Listing Status
-                    </th>
-                    <th className="text-left py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                      Commission Status
-                    </th>
-                    <th className="text-center py-4 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border/50">
-                  {filteredCommissions.map((commission, index) => (
-                    <tr 
-                      key={commission.id} 
-                      className={cn(
-                        "transition-colors duration-150 hover:bg-muted/40",
-                        index % 2 === 0 ? "bg-background" : "bg-muted/10"
-                      )}
-                    >
-                      <td className="py-4 px-6">
-                        <div className="space-y-1">
-                          <div className="font-medium text-sm text-foreground leading-tight">
-                            {commission.property}
-                          </div>
-                          <div className="text-xs text-muted-foreground font-medium">
-                            ${commission.listingPrice.toLocaleString()}
-                          </div>
-                        </div>
-                      </td>
-                      <td className="py-4 px-4 text-right">
-                        <span className="text-sm font-semibold text-foreground">
-                          ${commission.rate3.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-                        </span>
-                      </td>
-                      <td className="py-4 px-4 text-right">
-                        <span className="text-sm font-semibold text-foreground">
-                          ${commission.rate6.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-                        </span>
-                      </td>
-                      <td className="py-4 px-4 text-right">
-                        <span className="text-sm font-bold text-emerald-600">
-                          ${commission.likely.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-                        </span>
-                      </td>
-                      <td className="py-4 px-4">
-                        <span className="text-sm text-muted-foreground font-medium">
-                          {commission.estimatedClosing.toLocaleDateString('en-US', { 
-                            year: 'numeric', 
-                            month: 'short', 
-                            day: 'numeric' 
-                          })}
-                        </span>
-                      </td>
-                      <td className="py-4 px-4">
-                        {getListingStatusBadge(commission.listingStatus)}
-                      </td>
-                      <td className="py-4 px-4">
-                        {getCommissionStatusBadge(commission.commissionStatus)}
-                      </td>
-                      <td className="py-4 px-4">
-                        <div className="flex items-center justify-center gap-2">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => handleEditCommission(commission.id)}
-                            className="h-8 w-8 p-0 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 transition-colors"
-                            title="Edit commission"
-                          >
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => handleDeleteCommission(commission.id)}
-                            className="h-8 w-8 p-0 text-muted-foreground hover:text-red-600 hover:bg-red-50 transition-colors"
-                            title="Delete commission"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-                <tfoot>
-                  <tr className="border-t-2 border-border bg-gradient-to-r from-muted/50 to-muted/30">
-                    <td className="py-5 px-6">
-                      <span className="text-base font-bold text-foreground">Totals</span>
-                    </td>
-                    <td className="py-5 px-4 text-right">
-                      <span className="text-sm font-bold text-foreground">
-                        ${totals.rate3.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-                      </span>
-                    </td>
-                    <td className="py-5 px-4 text-right">
-                      <span className="text-sm font-bold text-foreground">
-                        ${totals.rate6.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-                      </span>
-                    </td>
-                    <td className="py-5 px-4 text-right">
-                      <span className="text-base font-bold text-emerald-600">
-                        ${totals.likely.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-                      </span>
-                    </td>
-                    <td className="py-5 px-4"></td>
-                    <td className="py-5 px-4"></td>
-                    <td className="py-5 px-4"></td>
-                    <td className="py-5 px-4"></td>
-                  </tr>
-                </tfoot>
-              </table>
+            <div className="bg-gray-50 border-b border-gray-200">
+              {/* Table Header */}
+              <div className="grid grid-cols-12 gap-4 py-3 px-6 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <div className="col-span-1"></div>
+                <div className="col-span-3">PROPERTY</div>
+                <div className="col-span-1 text-right">3% RATE</div>
+                <div className="col-span-1 text-right">6% RATE</div>
+                <div className="col-span-1 text-right">LIKELY</div>
+                <div className="col-span-2">EST. CLOSING</div>
+                <div className="col-span-1">STATUS</div>
+                <div className="col-span-1">COMMISSION</div>
+                <div className="col-span-1 text-center">ACTIONS</div>
+              </div>
+            </div>
+            
+            <div className="divide-y divide-gray-100">
+              {filteredCommissions.map((commission, index) => (
+                <div 
+                  key={commission.id} 
+                  className={cn(
+                    "grid grid-cols-12 gap-4 py-4 px-6 hover:bg-gray-50 transition-colors",
+                    index % 2 === 0 ? "bg-white" : "bg-gray-50/50"
+                  )}
+                >
+                  {/* Expand Arrow & Type Badge */}
+                  <div className="col-span-1 flex items-center space-x-2">
+                    <ChevronRight className="w-4 h-4 text-gray-400" />
+                    {getCommissionTypeBadge(commission.property)}
+                  </div>
+                  
+                  {/* Property Info */}
+                  <div className="col-span-3">
+                    <div className="font-medium text-sm text-gray-900 leading-tight">
+                      {commission.property}
+                    </div>
+                    <div className="text-xs text-gray-500 mt-1">
+                      LISTING PRICE: <span className="font-medium">${commission.listingPrice.toLocaleString()}</span>
+                    </div>
+                  </div>
+                  
+                  {/* Commission Rates */}
+                  <div className="col-span-1 text-right">
+                    <div className="text-sm font-medium text-gray-900">
+                      ${commission.rate3.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                    </div>
+                  </div>
+                  
+                  <div className="col-span-1 text-right">
+                    <div className="text-sm font-medium text-gray-900">
+                      ${commission.rate6.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                    </div>
+                  </div>
+                  
+                  <div className="col-span-1 text-right">
+                    <div className="text-sm font-semibold text-emerald-600">
+                      ${commission.likely.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                    </div>
+                  </div>
+                  
+                  {/* Est. Closing */}
+                  <div className="col-span-2">
+                    <div className="text-sm text-gray-600">
+                      {commission.estimatedClosing.toLocaleDateString('en-US', { 
+                        month: '2-digit',
+                        day: '2-digit',
+                        year: 'numeric'
+                      })}
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      DOM: {Math.floor((new Date().getTime() - commission.estimatedClosing.getTime()) / (1000 * 60 * 60 * 24))}
+                    </div>
+                  </div>
+                  
+                  {/* Listing Status */}
+                  <div className="col-span-1">
+                    {getListingStatusBadge(commission.listingStatus)}
+                  </div>
+                  
+                  {/* Commission Status */}
+                  <div className="col-span-1">
+                    {getCommissionStatusBadge(commission.commissionStatus)}
+                  </div>
+                  
+                  {/* Actions */}
+                  <div className="col-span-1">
+                    <div className="flex items-center justify-center gap-1">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleEditCommission(commission.id)}
+                        className="h-7 w-7 p-0 text-gray-400 hover:text-blue-600 hover:bg-blue-50"
+                        title="Edit commission"
+                      >
+                        <Edit className="h-3.5 w-3.5" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleDeleteCommission(commission.id)}
+                        className="h-7 w-7 p-0 text-gray-400 hover:text-red-600 hover:bg-red-50"
+                        title="Delete commission"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            {/* Totals Footer */}
+            <div className="border-t-2 border-gray-200 bg-gray-50">
+              <div className="grid grid-cols-12 gap-4 py-4 px-6">
+                <div className="col-span-4">
+                  <span className="text-base font-semibold text-gray-900">Totals</span>
+                </div>
+                <div className="col-span-1 text-right">
+                  <span className="text-sm font-bold text-gray-900">
+                    ${totals.rate3.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                  </span>
+                </div>
+                <div className="col-span-1 text-right">
+                  <span className="text-sm font-bold text-gray-900">
+                    ${totals.rate6.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                  </span>
+                </div>
+                <div className="col-span-1 text-right">
+                  <span className="text-base font-bold text-emerald-600">
+                    ${totals.likely.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                  </span>
+                </div>
+                <div className="col-span-5"></div>
+              </div>
             </div>
           </CardContent>
         </Card>
