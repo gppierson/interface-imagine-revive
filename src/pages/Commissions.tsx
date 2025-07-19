@@ -386,14 +386,12 @@ export default function Commissions() {
             <div className="bg-gray-50 border-b">
               {/* Table Header */}
               <div className="grid grid-cols-12 gap-4 py-3 px-6 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                <div className="col-span-1">TYPE</div>
-                <div className="col-span-3">PROPERTY</div>
-                <div className="col-span-1 text-right">3% RATE</div>
-                <div className="col-span-1 text-right">6% RATE</div>
-                <div className="col-span-1 text-right">LIKELY</div>
-                <div className="col-span-2">EST. CLOSING</div>
-                <div className="col-span-1">STATUS</div>
-                <div className="col-span-1">COMMISSION</div>
+                <div className="col-span-4">PROPERTY</div>
+                <div className="col-span-1 text-right">PRICE</div>
+                <div className="col-span-1 text-center">SQUARE FEET</div>
+                <div className="col-span-1 text-center">LOT SIZE</div>
+                <div className="col-span-2">STATUS</div>
+                <div className="col-span-2">LISTED DATE</div>
                 <div className="col-span-1 text-center">ACTIONS</div>
               </div>
             </div>
@@ -407,10 +405,8 @@ export default function Commissions() {
                     index % 2 === 0 ? "bg-white" : "bg-gray-50/30"
                   )}
                 >
-                  {/* Type Badge */}
                   <div className="col-span-1 flex items-center">
-                    <ChevronRight className="w-3 h-3 text-gray-300 mr-2" />
-                    {getCommissionTypeBadge(commission.property)}
+                    <ChevronRight className="w-3 h-3 text-gray-300" />
                   </div>
                   
                   {/* Property Info */}
@@ -421,114 +417,78 @@ export default function Commissions() {
                     <div className="text-xs text-gray-500">
                       <span className="text-gray-400">Add nickname...</span>
                     </div>
-                    <div className="text-xs text-gray-500 mt-1">
-                      Listing Price: <span className="font-medium text-gray-700">${commission.listingPrice.toLocaleString()}</span>
-                    </div>
                   </div>
                    
-                  {/* Commission Rates */}
+                  {/* Price */}
                   <div className="col-span-1 text-right">
+                    <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">
+                      {commission.property.toLowerCase().includes('business') ? 'BUSINESS PRICE:' : 
+                       commission.property.toLowerCase().includes('lease') ? 'LEASE PRICE:' : 'SALE PRICE:'}
+                    </div>
                     <div className="text-sm font-medium text-gray-900">
-                      ${commission.rate3.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                      ${commission.listingPrice.toLocaleString()}
                     </div>
                   </div>
                   
-                  <div className="col-span-1 text-right">
+                  {/* Square Feet */}
+                  <div className="col-span-1 text-center">
                     <div className="text-sm font-medium text-gray-900">
-                      ${commission.rate6.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                      -
                     </div>
                   </div>
                   
-                  <div className="col-span-1 text-right">
-                    <div className="text-sm font-semibold text-emerald-600">
-                      ${commission.likely.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-                    </div>
-                  </div>
-                  
-                  {/* Est. Closing */}
-                  <div className="col-span-2">
-                    <div className="text-sm text-gray-900">
-                      {commission.estimatedClosing.toLocaleDateString('en-US', { 
-                        month: 'numeric',
-                        day: 'numeric',
-                        year: 'numeric'
-                      })}
+                  {/* Lot Size */}
+                  <div className="col-span-1 text-center">
+                    <div className="text-sm font-medium text-gray-900">
+                      -
                     </div>
                   </div>
                   
                   {/* Status */}
-                  <div className="col-span-1 flex items-center">
-                    <div className="flex items-center gap-1">
-                      <div className={cn(
-                        "w-2 h-2 rounded-full",
-                        commission.listingStatus === "listed" ? "bg-emerald-500" :
-                        commission.listingStatus === "pending" ? "bg-orange-500" :
-                        commission.listingStatus === "sold" ? "bg-blue-500" : "bg-gray-400"
-                      )} />
-                      <span className="text-sm text-gray-700">
-                        {commission.listingStatus === "pending" ? "Under Contract" : 
-                         commission.listingStatus.charAt(0).toUpperCase() + commission.listingStatus.slice(1)}
-                      </span>
-                      <ChevronRight className="w-3 h-3 text-gray-400 ml-1" />
-                    </div>
+                  <div className="col-span-2 flex items-center gap-2">
+                    {getListingStatusBadge(commission.listingStatus)}
+                    <ChevronRight className="w-3 h-3 text-gray-400" />
                   </div>
                   
-                  {/* Commission Status */}
-                  <div className="col-span-1">
-                    {getCommissionStatusBadge(commission.commissionStatus)}
+                  {/* Listed Date */}
+                  <div className="col-span-2">
+                    <div className="text-sm text-gray-900">
+                      {commission.estimatedClosing.toLocaleDateString('en-US', { 
+                        month: '2-digit', 
+                        day: '2-digit', 
+                        year: 'numeric' 
+                      })}
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      DOM: {Math.abs(Math.floor((Date.now() - commission.estimatedClosing.getTime()) / (1000 * 60 * 60 * 24)))}
+                    </div>
                   </div>
                   
                   {/* Actions */}
-                  <div className="col-span-1">
-                    <div className="flex items-center justify-center gap-1">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleEditCommission(commission.id)}
-                        className="h-6 w-6 p-0 text-gray-400 hover:text-blue-600 hover:bg-blue-50"
-                        title="Edit commission"
-                      >
-                        <Edit className="h-3 w-3" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleDeleteCommission(commission.id)}
-                        className="h-6 w-6 p-0 text-gray-400 hover:text-red-600 hover:bg-red-50"
-                        title="Delete commission"
-                      >
-                        <Trash2 className="h-3 w-3" />
-                      </Button>
-                    </div>
+                  <div className="col-span-1 flex items-center justify-center gap-1">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleEditCommission(commission.id)}
+                      className="h-6 w-6 p-0 text-gray-400 hover:text-blue-600 hover:bg-blue-50"
+                      title="Edit commission"
+                    >
+                      <Edit className="h-3 w-3" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleDeleteCommission(commission.id)}
+                      className="h-6 w-6 p-0 text-gray-400 hover:text-red-600 hover:bg-red-50"
+                      title="Delete commission"
+                    >
+                      <Trash2 className="h-3 w-3" />
+                    </Button>
                   </div>
                 </div>
               ))}
             </div>
             
-            {/* Totals Footer */}
-            <div className="border-t-2 border-gray-200 bg-gray-50">
-              <div className="grid grid-cols-12 gap-4 py-4 px-6">
-                <div className="col-span-4">
-                  <span className="text-base font-semibold text-gray-900">Totals</span>
-                </div>
-                <div className="col-span-1 text-right">
-                  <span className="text-sm font-bold text-gray-900">
-                    ${totals.rate3.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-                  </span>
-                </div>
-                <div className="col-span-1 text-right">
-                  <span className="text-sm font-bold text-gray-900">
-                    ${totals.rate6.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-                  </span>
-                </div>
-                <div className="col-span-1 text-right">
-                  <span className="text-base font-bold text-emerald-600">
-                    ${totals.likely.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-                  </span>
-                </div>
-                <div className="col-span-5"></div>
-              </div>
-            </div>
           </CardContent>
         </Card>
       </div>
