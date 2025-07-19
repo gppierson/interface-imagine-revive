@@ -182,37 +182,27 @@ export default function Commissions() {
   const getCommissionStatusBadge = (commissionStatus: string) => {
     switch (commissionStatus) {
       case "paid":
-        return <Badge className="bg-emerald-500 hover:bg-emerald-600 text-white border-0 text-xs px-3 py-1">Paid</Badge>;
+        return <Badge className="bg-emerald-500 hover:bg-emerald-600 text-white border-0 text-xs px-2 py-0.5">Paid</Badge>;
       default:
-        return <Badge variant="outline" className="text-gray-600 border-gray-300 text-xs px-3 py-1">Not Paid</Badge>;
+        return <Badge variant="outline" className="text-gray-600 border-gray-300 text-xs px-2 py-0.5">Not Paid</Badge>;
     }
   };
 
   const getListingStatusBadge = (listingStatus: string) => {
     switch (listingStatus) {
       case "listed":
-        return <Badge className="bg-emerald-500 hover:bg-emerald-600 text-white border-0 text-xs px-3 py-1">Listed</Badge>;
+        return <Badge className="bg-emerald-500 hover:bg-emerald-600 text-white border-0 text-xs px-2 py-0.5">Listed</Badge>;
       case "pending":
-        return <Badge className="bg-orange-500 hover:bg-orange-600 text-white border-0 text-xs px-3 py-1">Under Contract</Badge>;
+        return <Badge className="bg-orange-500 hover:bg-orange-600 text-white border-0 text-xs px-2 py-0.5">Under Contract</Badge>;
       case "sold":
-        return <Badge className="bg-blue-500 hover:bg-blue-600 text-white border-0 text-xs px-3 py-1">Sold</Badge>;
+        return <Badge className="bg-blue-500 hover:bg-blue-600 text-white border-0 text-xs px-2 py-0.5">Sold</Badge>;
       case "withdrawn":
-        return <Badge variant="outline" className="text-gray-600 border-gray-300 text-xs px-3 py-1">Withdrawn</Badge>;
+        return <Badge variant="outline" className="text-gray-600 border-gray-300 text-xs px-2 py-0.5">Withdrawn</Badge>;
       default:
-        return <Badge variant="outline" className="text-gray-600 border-gray-300 text-xs px-3 py-1">Unknown</Badge>;
+        return <Badge variant="outline" className="text-gray-600 border-gray-300 text-xs px-2 py-0.5">Unknown</Badge>;
     }
   };
 
-  const getCommissionTypeBadge = (property: string) => {
-    // Determine type based on property characteristics
-    if (property.toLowerCase().includes('business') || property.toLowerCase().includes('craft')) {
-      return <Badge className="bg-orange-100 text-orange-700 border-orange-200 text-xs px-3 py-1 font-medium">Business</Badge>;
-    } else if (property.toLowerCase().includes('commercial') || property.toLowerCase().includes('office')) {
-      return <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200 text-xs px-3 py-1 font-medium">Commercial Sale</Badge>;
-    } else {
-      return <Badge className="bg-blue-100 text-blue-700 border-blue-200 text-xs px-3 py-1 font-medium">Property Sale</Badge>;
-    }
-  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -384,8 +374,7 @@ export default function Commissions() {
           <CardContent className="p-0">
             <div className="bg-gray-100 border-b border-gray-200">
               {/* Table Header */}
-              <div className="grid grid-cols-12 gap-4 py-3 px-6 text-xs font-medium text-gray-600 uppercase tracking-wider">
-                <div className="col-span-1"></div>
+              <div className="grid grid-cols-11 gap-4 py-3 px-6 text-xs font-medium text-gray-600 uppercase tracking-wider">
                 <div className="col-span-3">PROPERTY</div>
                 <div className="col-span-1 text-right">3% RATE</div>
                 <div className="col-span-1 text-right">6% RATE</div>
@@ -402,16 +391,10 @@ export default function Commissions() {
                 <div 
                   key={commission.id} 
                   className={cn(
-                    "grid grid-cols-12 gap-4 py-3 px-6 hover:bg-gray-50 transition-colors",
+                    "grid grid-cols-11 gap-4 py-3 px-6 hover:bg-gray-50 transition-colors",
                     index % 2 === 0 ? "bg-white" : "bg-gray-50"
                   )}
                 >
-                  {/* Expand Arrow & Type Badge */}
-                  <div className="col-span-1 flex items-center space-x-2">
-                    <ChevronRight className="w-4 h-4 text-gray-400" />
-                    {getCommissionTypeBadge(commission.property)}
-                  </div>
-                  
                   {/* Property Info */}
                   <div className="col-span-3">
                     <div className="font-medium text-sm text-gray-900 leading-tight">
@@ -494,8 +477,8 @@ export default function Commissions() {
             
             {/* Totals Footer */}
             <div className="border-t-2 border-gray-200 bg-gray-50">
-              <div className="grid grid-cols-12 gap-4 py-4 px-6">
-                <div className="col-span-4">
+              <div className="grid grid-cols-11 gap-4 py-4 px-6">
+                <div className="col-span-3">
                   <span className="text-base font-semibold text-gray-900">Totals</span>
                 </div>
                 <div className="col-span-1 text-right">
